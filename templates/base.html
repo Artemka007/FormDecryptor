@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 {% load static %}
+<!-- Base template for navigation panel and footer on all pages in this web-site -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'content.css' %}">
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-<div>
-    <nav class="nav_panel">
-        <div class="nav_item">
-            Home
-        </div>
-        <div class="nav_item">
-            About
-        </div>
-        <div class="nav_item">
-            Contacts
-        </div>
-    </nav>
-</div>
+<nav class="nav_panel">
+    <div style="display: flex; flex-direction: row;margin-left: 200px; width: 60%;box-sizing: border-box;">
+        <a href="{% url "index" %}" class="nav_item">Home</a>
+        <a href="{% url "about" %}" class="nav_item">About</a>
+        <a href="{% url "contacts" %}" class="nav_item">Contacts</a>
+    </div>
+    <div class="nav_auth_item">
+        <!-- If user is authenticated we see him full name in navigation panel -->
+        {% if request.user.is_authenticated %}
+            <!-- We need to create profile settings page -->
+            <a class="nav_item">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
+            <a href="{% url 'logout' %}"  class="nav_item">Logout</a>
+        <!-- Else we see sentence to register and to login -->
+        {% else %}
+            <a href="{% url 'register' %}" class="nav_item">Register</a>
+            <a href="{% url 'login' %}" class="nav_item">Login</a>
+        {% endif %}
+    </div>
+</nav>
 <div class="content">
-    {% block content %}
+    <div style="width: 60%;">
+        <!-- All content of this web-site -->
+        {% block content %}
 
-    {% endblock %}
+        {% endblock %}
+        <footer class="footer">
+            <div class="footer_item">&copy; Hakaton Team - <a href="{% url "about" %}">About</a> </div>
+            <a href="{% url "index" %}" class="footer_item">Home</a>
+            <a href="{% url "contacts" %}" class="footer_item">Contacts</a>
+            <a class="footer_item" href="https://github.com/Artemka007/FormDecryption">Project on GitHub</a>
+        </footer>
+    </div>
 </div>
 </body>
 </html>
