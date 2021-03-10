@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Upload files{% endblock %}
+{% block content %}
+    <form data-action="upload_photos" action="{% url 'decryptor_blank_upload' %}" id="upload" method="get" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div id="drop">
+            Добавить файлы сюда
+            <a>Загрузить</a>
+            <!-- Пока загружаем только форматы .jpg и .jpeg, при загрузке .jpg преобразовывается в .jpeg -->
+            <input id="files_uploader" type="file" name="upl" accept="image/jpeg,image/jpg" />
+
+        </div>
+        <!-- Сюда через jquery добавляются загруженные файлы -->
+        <ul class="progress_ul">
+        </ul>
+    </form>
+{% endblock %}
