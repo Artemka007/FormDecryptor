@@ -4,7 +4,9 @@
 ```pip install django```
 ```pip install pillow```
 ## JavaScript:
-```npm install jquery```
+```shell
+  npm install jquery
+```
 ```npm install jquery.iframe-transport```
 ```npm install blueimp-file-upload```
 ```npm install jquery.ui.widget```
