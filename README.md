@@ -1,4 +1,4 @@
-# FormDecryption
+# FormDecryptor
 #### Чтобы все заработало надо убедиться, что вы в директории с файлом manage.py. Далее в командной строке надо написать 
 ```python manage.py makemigrations```
 #### Далее
