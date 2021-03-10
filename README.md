@@ -8,7 +8,7 @@
 ```npm install jquery.iframe-transport```
 ```npm install blueimp-file-upload```
 ```npm install jquery.ui.widget```
-### Че яваскриптовое - надо добавить в директорию manage, которую надо создать в директории static.
+### JavaScript плагины надо перенести в директорию manage, которую надо создать в директории static.
 
 #### Чтобы все заработало надо убедиться, что вы в директории с файлом manage.py. Далее в командной строке надо написать 
 ```python manage.py makemigrations```
