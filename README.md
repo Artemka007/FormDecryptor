@@ -1,5 +1,9 @@
 # FormDecryptor
-#### Необходимо установить:
+### Для начала надо активировать виртуальное окружение:
+``` shell
+  \venv\scripts\activate.bat
+```
+### Далее необходимо установить:
 ## Python:
 ``` shell
   pip install django
