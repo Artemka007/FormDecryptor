@@ -1,17 +1,17 @@
 # FormDecryptor
-### Для начала надо активировать виртуальное окружение:
+### Чтобы все заработало надо для начала надо активировать виртуальное окружение:
 ``` shell
   \venv\scripts\activate.bat
 ```
 ### Далее необходимо установить:
-## Python:
+#### Python:
 ``` shell
   pip install django
 ```
 ``` shell
   pip install pillow
 ```
-## JavaScript:
+#### JavaScript:
 ```shell
   npm install jquery
 ```
@@ -26,7 +26,7 @@
 ```
 ### JavaScript плагины надо перенести в директорию manage, которую надо создать в директории static.
 
-#### Чтобы все заработало надо убедиться, что вы в директории с файлом manage.py. Далее в командной строке надо написать 
+#### Далее надо убедиться, что вы в директории с файлом manage.py. В командной строке надо написать 
 ```python manage.py makemigrations```
 #### Далее
 ```python manage.py migrate```
