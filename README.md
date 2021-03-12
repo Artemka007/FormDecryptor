@@ -1,5 +1,32 @@
 # FormDecryptor
-#### Чтобы все заработало надо убедиться, что вы в директории с файлом manage.py. Далее в командной строке надо написать 
+### Чтобы все заработало для начала надо активировать виртуальное окружение:
+``` shell
+  \venv\scripts\activate.bat
+```
+### Далее необходимо установить:
+#### Python:
+``` shell
+  pip install django
+```
+``` shell
+  pip install pillow
+```
+#### JavaScript:
+```shell
+  npm install jquery
+```
+``` shell 
+  npm install jquery.iframe-transport
+```
+``` shell 
+  npm install blueimp-file-upload
+```
+``` shell 
+  npm install jquery.ui.widget
+```
+### JavaScript плагины надо перенести в директорию manage, которую надо создать в директории static.
+
+#### Далее надо убедиться, что вы в директории с файлом manage.py. В командной строке надо написать 
 ```python manage.py makemigrations```
 #### Далее
 ```python manage.py migrate```
