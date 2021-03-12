@@ -127,7 +127,7 @@
 }
 
 .question_about_edit_message_close{
-    width: 100%;
+    width: fit-content;
     box-sizing: border-box;
 }
 
