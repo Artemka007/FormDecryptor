@@ -4,7 +4,14 @@
     <form method="POST">
 
     {% csrf_token %}
-    {{ form.as_p }}
+    <div style="display: flex; flex-direction: column;">
+        <label for="id_username">Username:</label> <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+        <label for="id_email">Email address:</label> <input type="email" name="email" maxlength="254" id="id_email">
+        <label for="id_first_name">First name:</label> <input type="text" name="first_name" maxlength="150" id="id_first_name">
+        <label for="id_last_name">Last name:</label> <input type="text" name="last_name" maxlength="150" id="id_last_name">
+        <label for="id_password1">Password:</label> <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+        <label for="id_password2">Password confirmation:</label> <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+    </div>
     <button type="submit">Register</button>
     </form>
 {% endblock %}

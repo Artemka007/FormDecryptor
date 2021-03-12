@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'account',
     'mainApp',
     'formDecryption',
-    'jquery',
 ]
 
 MIDDLEWARE = [

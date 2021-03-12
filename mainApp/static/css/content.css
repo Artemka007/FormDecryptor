@@ -19,7 +19,7 @@ html, body{
     height: fit-content;
     width: 100%;
     padding: 0 20px;
-    background-color: rgb(58, 70, 131);
+    background-color: rgb(48, 67, 136);
     box-sizing: border-box;
 }
 
@@ -53,10 +53,11 @@ html, body{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    border-top:  rgba(0, 0, 0, 0.3) solid 1px;
+    border-top:  rgba(0, 0, 0, 0.2) solid 1px;
     margin-top: 200px;
     min-height: 100px;
     box-sizing: border-box;
+    padding: 15px;
 }
 
 .footer_item{

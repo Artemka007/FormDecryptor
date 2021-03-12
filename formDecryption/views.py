@@ -36,13 +36,21 @@ def upload_files_controller(request):
             formModelObject.save()
 
         # Если что-то идет не так возвращаем ответ со статусом BadRequest, и с сообщением ошибки.
-        # Это сообщение будет анимированно появляться на экране в специальном контэйнере, с помощью jQuery.
+        # Это сообщение будет анимированно появляться на экране в специальном контейнере, с помощью jQuery.
         except Exception as e:
             return JsonResponse({'result': False, 'error': str(e.__str__())}, status=400)
         # Ну и если объект сохранился, то возвращаем ответ со статусом Created.
         # Url нужен для взятия изображения с сервера, с последующей передачи его в нейронку.
         # А pk (сокращение от Primary Key) нужен для следующей функции
-        return JsonResponse({'result': True, 'url_redirect': str(formModelObject.form.url), 'pk': formModelObject.pk}, status=201)
+        return JsonResponse(
+            {
+                'result': True,
+                'url_redirect': str(formModelObject.form.url),
+                'pk': formModelObject.pk,
+                'form_size': int(formModelObject.form.size),
+                'form_name': str(formModelObject.form.name)
+            }, status=201
+        )
 
 def delete_upload_files_controller(request, pk):
     # pk ставится с помощью jquery, как аттрибут data-id к изображению крестика, при нажатии активируется функция, которая отправляет запрос

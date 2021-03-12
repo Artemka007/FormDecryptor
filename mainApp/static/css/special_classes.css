@@ -1,0 +1,63 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.dir_row{
+    flex-direction: row;
+}
+
+/* Сообщение об ошибке/предупреждении и т. д. */
+.warning_message_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: #fff;
+}
+
+/* Тут я думаю все логично. */
+.error{
+    background-color: #be0002;
+}
+
+.warning{
+    background-color: #ffcb00;
+}
+
+.ok{
+    background-color: #029500;
+}
+
+.info{
+    background-color: #1b2a80;
+}
+
+.bt{
+    padding: 5px 30px;
+    margin: 10px;
+    outline: none;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.bt_default{
+    border-radius: 15px;
+    background-color: #5451FF;
+    color: #FFF;
+    transition: background-color .2s;
+    border: none;
+}
+
+.bt_default_reverse{
+    border-radius: 15px;
+    color: #5451FF;
+    background-color: #FFF;
+    border: #5451FF solid 2px;
+    transition: background-color .2s;
+}
+
+.bt_default:hover, .bt_default_reverse:hover{
+    color: #FFF;
+    background-color: #413ed0;
+}
