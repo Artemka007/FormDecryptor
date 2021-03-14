@@ -59,5 +59,6 @@
 
 .bt_default:hover, .bt_default_reverse:hover{
     color: #FFF;
-    background-color: #413ed0;
+    background-color: #4442b1;
+    border-color: #4442b1;
 }

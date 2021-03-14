@@ -16,20 +16,6 @@
     box-sizing: border-box;
 }
 
-#drop a {
-    background-color: #5451FF;
-    padding: 6px 12px;
-    color: #fff;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background-color .2s;
-}
-
-#drop a:hover{
-    background-color: #3431e3;
-}
-
 #upload ul {
     list-style: none;
     margin: 0 -30px;
@@ -43,18 +29,6 @@
     padding: 15px;
     height: fit-content;
     position: relative;
-}
-
-#upload ul li p {
-    width: 144px;
-    overflow: hidden;
-    white-space: nowrap;
-    color: #EEE;
-    font-size: 15px;
-    font-weight: bold;
-    position: absolute;
-    top: 20px;
-    left: 100px;
 }
 
 #upload img{
@@ -120,10 +94,10 @@
     box-shadow: inset rgba(0,0,0,0.25) 0 4px 4px 0;
     padding: 20px 40px;
     box-sizing: border-box;
-    width: 95%;
+    width: 100%;
     margin-top: 30px;
     text-align: center;
-    background-color: #F0F0F0;
+    background-color: #e1e2ff;
 }
 
 .question_about_edit_message_close{

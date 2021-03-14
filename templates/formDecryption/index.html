@@ -4,14 +4,20 @@ Upload and decrypt form
 {% endblock %}
 
 {% block content %}
-<div class="help_upload_text"></div>
+<div class="container dir_row" style="justify-content: center">
+<div class="help_upload_text" style=" width: 80%">
+    <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Загрузите файлы для их последующей обработки</div>
+    <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Для загрузки перетащите файл в нижний контейнер или нажмите на кнопку загрузить и выберите нужный файл.</div>
+    <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Для удаления загруженного файла нажмите на крестик справа от описания файла.</div>
+</div>
+</div>
 <div class="upload_form">
 
     <form data-action="upload_photos" action="{% url 'decryptor_blank_upload' %}" id="upload" method="get" enctype="multipart/form-data">
         <div style="width: 95%;">
             {% csrf_token %}
             <div id="drop">
-                <a>Загрузить</a>
+                <a class="bt bt_default">Загрузить</a>
                 <!-- Пока загружаем только форматы .jpg и .jpeg, при загрузке .jpg преобразовывается в .jpeg -->
                 <input id="files_uploader" type="file" name="upl" accept="image/jpeg,image/jpg" />
 
