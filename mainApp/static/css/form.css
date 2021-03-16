@@ -1,0 +1,38 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin-top: 100px;
+}
+
+.form_title{
+    font-size: 32px;
+    color: rgba(0,0,0,0.4);
+    padding: 20px 0;
+    box-sizing: border-box;
+    border-bottom: rgba(0,0,0,0.4) solid 2px;
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.inp{
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 25px;
+    width: 100%;
+    background-color: white;
+    outline: none;
+    transition: all .2s;
+}
+
+.inp_default{
+    border: #A597FF solid 1px;
+}
+
+.inp_default:focus{
+    box-shadow: #010080 0 0 8px 1px;
+    transform: scale(1.01);
+}

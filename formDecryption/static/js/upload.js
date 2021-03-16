@@ -18,7 +18,12 @@ $(function() {
         // При старте появляется спинер загрузки и затемняющий контэйнер
         start: function(e, data) {
             $('.spinner').css({'display': 'block', 'z-index': '20'})
-            $('.blackout_container').css({'z-index': '10', 'background-color': 'rgba(0,0,0,0.7)'})
+            $('.blackout_container').css(
+                {
+                    'z-index': '10',
+                    'background-color': 'rgba(0,0,0,0.7)'
+                }
+            )
         },
         // Как загрузка заканчивается, дабавляется изображение и нв него вешаются события
         done: function(e, data) {

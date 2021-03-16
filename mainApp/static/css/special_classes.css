@@ -10,10 +10,17 @@
 
 /* Сообщение об ошибке/предупреждении и т. д. */
 .warning_message_container{
+    position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: center;
     color: #fff;
+    font-size: 25px;
+    padding: 20px;
+    width: 60%;
+    height: fit-content;
+    opacity: 0;
+    z-index: -2;
 }
 
 /* Тут я думаю все логично. */
@@ -30,7 +37,7 @@
 }
 
 .info{
-    background-color: #1b2a80;
+    background-color: #2039cf;
 }
 
 .bt{
@@ -39,6 +46,8 @@
     outline: none;
     cursor: pointer;
     font-size: 17px;
+    width: fit-content;
+    height: fit-content;
 }
 
 .bt_default{
@@ -46,7 +55,7 @@
     background-color: #5451FF;
     color: #FFF;
     transition: background-color .2s;
-    border: none;
+    border: #5451FF solid 2px;
 }
 
 .bt_default_reverse{
@@ -61,4 +70,10 @@
     color: #FFF;
     background-color: #4442b1;
     border-color: #4442b1;
+}
+
+.bt_default:disabled{
+    background-color: #4442b1;
+    cursor: default;
+
 }

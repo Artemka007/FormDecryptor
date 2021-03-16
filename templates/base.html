@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'css/content.css' %}">
     <link rel="stylesheet" href="{% static 'css/upload.css' %}">
     <link rel="stylesheet" href="{% static 'css/special_classes.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="{% static 'manage/jquery/dist/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'manage/jquery/src/ajax.js' %}"></script>
     <script type="text/javascript" src="{% static 'manage/jquery.iframe-transport/jquery.iframe-transport.js' %}"></script>
@@ -17,27 +19,31 @@
     <script type="text/javascript" src="{% static 'manage/blueimp-file-upload/js/jquery.fileupload.js' %}"></script>
     <script type="text/javascript" src="{% static 'manage/jquery-knob/js/jquery.knob.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/upload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'registration/login.js' %}"></script>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 <nav class="nav_panel">
-    <div style="display: flex; flex-direction: row;margin-left: 20%; width: 60%;box-sizing: border-box;">
-        <a href="{% url "index" %}" class="nav_item">Главная страница</a>
-        <a href="{% url "decryptor_index" %}" class="nav_item">Сканер бланков</a>
-    </div>
-    <div class="nav_auth_item">
-        <!-- If user is authenticated we see him full name and link to logout in navigation panel -->
-        {% if request.user.is_authenticated %}
-            <!-- We need to create profile settings page -->
-            <a href="{% if request.user.is_superuser %}/admin{% else %}{% endif %}" class="nav_item">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
-            <a href="{% url 'logout' %}"  class="nav_item">Logout</a>
-        <!-- Else we see link to register and to login -->
-        {% else %}
-            <a href="{% url 'register' %}" class="nav_item">Register</a>
-            <a href="{% url 'login' %}" class="nav_item">Login</a>
-        {% endif %}
-    </div>
+    {% with request.resolver_match.url_name as un %}
+        <div style="display: flex; flex-direction: row;margin-left: 20%; width: 60%;box-sizing: border-box;">
+            <a href="{% url "index" %}" class="{% if un == 'index' %}nav_item_active{% else %}nav_item{% endif %}">Главная страница</a>
+            <a href="{% url "decryptor_index" %}" class="{% if un == 'decryptor_index' %}nav_item_active{% else %}nav_item{% endif %}">Сканер бланков</a>
+        </div>
+        <div class="nav_auth_item">
+            <!-- If user is authenticated we see him full name and link to logout in navigation panel -->
+            {% if request.user.is_authenticated %}
+                <!-- We need to create profile settings page -->
+                <a href="{% if request.user.is_superuser %}/admin{% else %}{% endif %}" class="{% if un == 'settings' %}nav_item_active{% else %}nav_item{% endif %}">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
+                <a href="{% url 'logout' %}" class="{% if un == 'logout' %}nav_item_active{% else %}nav_item{% endif %}">Выйти</a>
+            <!-- Else we see link to register and to login -->
+            {% else %}
+                <a href="{% url 'register' %}" class="{% if un == 'register' %}nav_item_active{% else %}nav_item{% endif %}">Зарегистрироваться</a>
+                <a href="{% url 'login' %}" class="{% if un == 'login' %}nav_item_active{% else %}nav_item{% endif %}">Войти</a>
+            {% endif %}
+        </div>
+    {% endwith %}
 </nav>
+<div class="blackout_container"></div>
 <div class="content">
     <div style="width: 60%;">
         <!-- All content of this web-site -->

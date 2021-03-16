@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
-{% block title %}Register{% endblock %}
+{% block title %}Регистрация{% endblock %}
 {% block content %}
-    <form method="POST">
-
+    <div class="container dir_row" style="width: 100%; justify-content: center">
+    <div class="container">
+    <form data-action="login_form" method="POST" class="form">
+    <div class="form_title">Регистрация</div>
     {% csrf_token %}
-    <div style="display: flex; flex-direction: column;">
-        <label for="id_username">Username:</label> <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
-        <label for="id_email">Email address:</label> <input type="email" name="email" maxlength="254" id="id_email">
-        <label for="id_first_name">First name:</label> <input type="text" name="first_name" maxlength="150" id="id_first_name">
-        <label for="id_last_name">Last name:</label> <input type="text" name="last_name" maxlength="150" id="id_last_name">
-        <label for="id_password1">Password:</label> <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
-        <label for="id_password2">Password confirmation:</label> <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
-    </div>
-    <button type="submit">Register</button>
+        <div class="container dir_row" style="width: 100%; justify-content: center;">
+            <div class="container" style="width: 100%;">
+                <input class="inp inp_default" placeholder="Логин..." type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+                <input class="inp inp_default" placeholder="Email..." type="email" name="email" maxlength="254" id="id_email">
+                <input class="inp inp_default" placeholder="Имя" type="text" name="first_name" maxlength="150" id="id_first_name">
+                <input class="inp inp_default" placeholder="Фамилия..." type="text" name="last_name" maxlength="150" id="id_last_name">
+                <input class="inp inp_default" placeholder="Пароль..." type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+                <input class="inp inp_default" placeholder="Подтверждение пароля..." type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+                <button data-action="login_button" type="submit" class="bt bt_default" style="font-size: 19px; width: fit-content;">Регистрация</button>
+            </div>
+        </div>
     </form>
+    <a href="{% url 'reset_password' %}">Forgot password</a>
+    </div>
+    </div>
 {% endblock %}
