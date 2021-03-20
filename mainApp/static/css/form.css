@@ -16,6 +16,28 @@
     text-align: center;
 }
 
+.links_container{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+}
+
+.form_link{
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.form_link:hover{
+    text-decoration: underline;
+}
+
+.inp_container{
+    display: flex;
+    flex-direction: column;
+    border-bottom: rgba(0,0,0,0.4) solid 2px;
+}
+
 .inp{
     box-sizing: border-box;
     border-radius: 10px;

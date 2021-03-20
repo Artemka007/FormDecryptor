@@ -17,3 +17,12 @@ class Form(models.Model):
         n_i = compress(self.form)
         self.form = n_i
         super().save(*args, **kwargs)
+
+class ExcelFile(models.Model):
+    file = models.FileField(upload_to='excelFiles/')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_file_full_url(self):
+        return str(self.file.url)
+
+    

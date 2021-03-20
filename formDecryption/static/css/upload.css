@@ -72,9 +72,12 @@
 
 .spinner {
     animation: rotate 2s linear infinite;
+    margin-right: 10px;
+}
+
+.login_spinner{
     width: 18px;
     height: 18px;
-    margin-right: 10px;
 }
 
 .spinner circle {

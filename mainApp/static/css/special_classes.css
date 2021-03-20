@@ -52,28 +52,28 @@
 
 .bt_default{
     border-radius: 15px;
-    background-color: #5451FF;
+    background-color: rgb(51, 102, 204);
     color: #FFF;
     transition: background-color .2s;
-    border: #5451FF solid 2px;
+    border: rgb(51, 102, 204) solid 2px;
 }
 
 .bt_default_reverse{
     border-radius: 15px;
-    color: #5451FF;
+    color: rgb(51, 102, 204);
     background-color: #FFF;
-    border: #5451FF solid 2px;
+    border: rgb(51, 102, 204) solid 2px;
     transition: background-color .2s;
 }
 
 .bt_default:hover, .bt_default_reverse:hover{
     color: #FFF;
-    background-color: #4442b1;
-    border-color: #4442b1;
+    background-color: rgb(56, 94, 171);
+    border-color: rgb(56, 94, 171);
 }
 
 .bt_default:disabled{
-    background-color: #4442b1;
+    background-color: rgb(56, 94, 171);
     cursor: default;
 
 }
