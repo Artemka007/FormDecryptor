@@ -15,7 +15,7 @@ html, body{
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(7, 7, 7, 0.01);
     z-index: -9;
 }
 
@@ -27,7 +27,7 @@ html, body{
     height: fit-content;
     width: 100%;
     padding: 0 20px;
-    background-color: rgb(48, 67, 136);
+    background: linear-gradient(to top, rgb(52, 102, 200), rgb(47, 81, 134));
     box-sizing: border-box;
 }
 

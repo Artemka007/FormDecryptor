@@ -66,6 +66,18 @@
     transition: background-color .2s;
 }
 
+.bt_default_gradient{
+    border-radius: 15px;
+    color: #FFF;
+    border: rgb(51, 102, 204) solid 2px;
+    background: linear-gradient(to top, rgb(56, 94, 171), rgb(56, 94, 171));
+    transition: background-color .2s;
+}
+
+.bt_default_gradient:hover{
+    background: linear-gradient(to top, rgb(54, 84, 157), rgb(62, 104, 190));
+}
+
 .bt_default:hover, .bt_default_reverse:hover{
     color: #FFF;
     background-color: rgb(56, 94, 171);
@@ -76,4 +88,11 @@
     background-color: rgb(56, 94, 171);
     cursor: default;
 
+}
+
+@media (max-width: 650px){
+    .bt{
+        padding: 4px 13px;
+        font-size: 14px;
+    }
 }

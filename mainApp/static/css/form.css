@@ -51,10 +51,29 @@
 }
 
 .inp_default{
-    border: #A597FF solid 1px;
+    border: rgb(51, 102, 204) solid 1px;
 }
 
 .inp_default:focus{
-    box-shadow: #010080 0 0 8px 1px;
+    box-shadow: rgb(51, 102, 204) 0 0 4px 1px;
     transform: scale(1.01);
+}
+
+@media (max-width: 650px){
+    .form{
+        width: 400px;
+        margin-top: 40px;
+    }
+
+    .inp{
+        font-size: 14px;
+        padding: 7px;
+        margin-bottom: 18px;
+    }
+}
+
+@media (max-width: 500px){
+    .form{
+        width: 350px;
+    }
 }
