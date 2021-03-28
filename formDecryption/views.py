@@ -10,10 +10,6 @@ from formDecryption.models import Form, ExcelFile
 def index(request):
     return render(request, "formDecryption/index.html")
 
-def upload(request):
-    # Пока думаем, как будет выглядеть эта страница, и что на ней должно быть.
-    return render(request, 'formDecryption/upload.html')
-
 def upload_files_controller(request):
     # Получаем текущего пользователя.
     u = request.user
