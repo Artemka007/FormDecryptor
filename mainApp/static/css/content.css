@@ -4,11 +4,17 @@ html, body{
     height: 100%;
 }
 
+p, a, pre, code{
+    font-size: 17px;
+}
+
 .content{
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    padding-top: 50px;
+    box-sizing: border-box;
 }
 
 .blackout_container{
@@ -20,6 +26,7 @@ html, body{
 }
 
 .nav_panel{
+    position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -31,8 +38,7 @@ html, body{
     box-sizing: border-box;
 }
 
-
-.nav_panel .nav_item, .nav_panel .nav_item_active{
+.nav_panel .nav_item, .nav_panel .nav_item_active, .nav_title{
     box-sizing: border-box;
     width: fit-content;
     height: fit-content;
@@ -42,6 +48,16 @@ html, body{
     cursor: pointer;
     text-decoration: none;
     transition: background-color .2s;
+}
+
+.nav_title{
+    font-size: 26px;
+    margin-right: 50px;
+    padding: 0;
+}
+
+.nav_title:hover{
+    text-decoration: underline;
 }
 
 .nav_panel .nav_item:hover, .nav_panel .nav_item_active{
@@ -63,23 +79,23 @@ html, body{
     width: 60%;
     box-sizing: border-box;
 }
-@media (max-width: 1100px) {
+
+.nav_title_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 1650px) {
     .nav_panel .nav_auth_item{
-        margin-right: 5%;
+        margin-right: 3%;
     }
     .nav_panel .nav_main_item{
-        margin-left: 5%;
+        margin-left: 3%;
     }
 }
+
 @media (max-width: 850px) {
-    .nav_panel .nav_auth_item{
-        margin-right: 0%;
-    }
-    .nav_panel .nav_main_item{
-        margin-left: 0%;
-    }
-}
-@media (max-width: 650px) {
     .nav_panel{
         flex-direction: column;
         padding: 0;
@@ -103,6 +119,17 @@ html, body{
         width: 100%;
         text-align: center;
     }
+
+    .nav_title{
+        margin-right: 0;
+    }
+
+    .nav_title_container{
+        flex-direction: row;
+        width: 100%;
+        padding: 10px 0;
+        justify-content: center;
+    }
 }
 
 .footer{
@@ -116,7 +143,17 @@ html, body{
     padding: 15px;
 }
 
+@media (max-width: 850px){
+    .footer{
+        flex-direction: column;
+    }
+}
+
 .footer_item{
     margin: 5px 20px;
 }
 
+.first_text{
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 22px;
+}

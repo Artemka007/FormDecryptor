@@ -24,6 +24,9 @@
 <nav class="nav_panel">
     {% with request.resolver_match.url_name as un %}
         <div class="nav_main_item">
+            <div class="nav_title_container" style="justify-content: center;">
+                <a class="nav_title" href="{% url 'index' %}">FormDecryptor</a>
+            </div>
             <a href="{% url "index" %}" class="{% if un == 'index' %}nav_item_active{% else %}nav_item{% endif %}">Главная страница</a>
             <a href="{% url "decryptor_index" %}" class="{% if un == 'decryptor_index' %}nav_item_active{% else %}nav_item{% endif %}">Сканер бланков</a>
         </div>

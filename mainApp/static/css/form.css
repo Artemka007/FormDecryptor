@@ -50,13 +50,15 @@
     transition: all .2s;
 }
 
-.inp_default{
-    border: rgb(51, 102, 204) solid 1px;
+.inp_default:hover{
+    border: rgb(124, 124, 124) solid 2px;
 }
 
 .inp_default:focus{
-    box-shadow: rgb(51, 102, 204) 0 0 4px 1px;
-    transform: scale(1.01);
+    border: rgb(68, 112, 236) solid 2px;
+}
+.inp_default{
+    border: rgb(212, 212, 212) solid 2px;
 }
 
 @media (max-width: 650px){

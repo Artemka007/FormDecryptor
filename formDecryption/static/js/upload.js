@@ -46,7 +46,7 @@ $(function() {
             $('.spinner').css({'display': 'none', 'z-index': '0'})
             $('.blackout_container').css({'z-index': '-9', 'background-color': 'rgba(0,0,0,0)'})
 
-            $('[data-action="del_photo"]').click(del_photo);
+            $('[data-action="del_photo"]').one('click', del_photo);
         }
 
     });
@@ -104,6 +104,22 @@ function del_photo(){
         el.css('display', 'none')
     })
 }
+function del_all_photos(){
+    let els = $('.upload-image-container')
+    let ids = $('.upload-image-container').map(function(){return $(this).attr('data-pk')})
+    for(let i = 0; i < els.length; i++){
+        let pk = ids[i]
+        $.ajax({
+            url: '/decryptor/upload/delete/' + pk,
+            type: 'GET'
+        }).done(function(data){
+            let el = $('[data-pk="' + pk +'"]')
+            el.css('transform', 'scale(0)')
+            el.css('display', 'none')
+        })
+    }
+}
 $(function() {
     $('[data-action="upload_photos"]').submit(upload);
+    $('[data-action="delete_all_photos"]').on('click', del_all_photos)
 })
