@@ -1,6 +1,6 @@
+import io
 import os
 
-from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
@@ -22,7 +22,7 @@ def upload_files_controller(request):
 
     if(not u.is_authenticated):
         # Если пользователь не зареган, то возвращаем ответ со статусом Unauthorized.
-        return JsonResponse({'result': False}, status=403)
+        return JsonResponse({'result': False, 'error': 'Вы не авторизованны.'})
 
     # Перебираем массив с одним файлом
     for f in file:
@@ -65,3 +65,43 @@ def delete_upload_files_controller(request, pk):
         return JsonResponse({'result': False, 'error': str(e.__str__())}, status=400)
     # И возвращается ответ, что все прошло нормально.
     return JsonResponse({'result': True}, status=204)
+
+def download_excel_file(request, pk):
+    # пока комментировать лень, потом посмотрим
+    excel_file_object = ExcelFile.objects.get(pk=pk)
+    path = excel_file_object.get_file_full_url()
+
+    if pk == 'undefined':
+        return HttpResponse({'result': False, 'error': 'Что-то пошло не так... Повторите попытку.'})
+
+    if not request.user.is_authenticated:
+        return HttpResponse({'result': False, 'error': 'Пользователь не авторизован.'})
+
+    if excel_file_object is None:
+        return HttpResponse({'result': False, 'error': 'Объект с этим id не создан.'})
+
+    if not os.path.exists(path):
+        return HttpResponse({'result': False, 'error': 'Файл не найден'})
+
+    fp = open(path, "rb")
+
+    response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
+    fp.close()
+
+    response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name())
+
+    return response
+
+
+
+
+def test_download_excel_file(request):
+    path = './media/excelFiles/Test.xlsx'
+    if os.path.exists(path):
+        fp = open(path, "rb")
+
+        response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
+        fp.close()
+        response['Content-Disposition'] = 'attachment; filename=Test.xlsx'
+        return response
+    return HttpResponse({'error': 'Файл не найден'})

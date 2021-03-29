@@ -8,6 +8,9 @@
     {% csrf_token %}
         <div class="container dir_row" style="width: 100%; justify-content: center;">
             <div class="container" style="width: 100%;">
+                    {% for error in form.non_field_errors %}
+                        <span class="error warning_message">{{ error }}</span>
+                    {% endfor %}
                 <div class="inp_container">
                     <input class="inp inp_default" placeholder="Логин..." type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
                     <input class="inp inp_default" placeholder="Email..." type="email" name="email" maxlength="254" id="id_email">

@@ -18,15 +18,18 @@ $(function() {
         // При старте появляется спинер загрузки и затемняющий контэйнер
         start: function(e, data) {
             $('.spinner').css({'display': 'block', 'z-index': '20'})
-            $('.blackout_container').css(
-                {
-                    'z-index': '10',
-                    'background-color': 'rgba(0,0,0,0.7)'
-                }
-            )
         },
         // Как загрузка заканчивается, дабавляется изображение и нв него вешаются события
         done: function(e, data) {
+            if(data.result.error){
+                $('[data-action="modal_error_window"]').animate({'opacity': 1, 'z-index': '9'}, 600)
+                $('[data-action="error_message"]').text(data.result.error)
+                $('[data-action="close_modal_error"]').one('click', function (){$('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2'}, 600, null, function (){$('[data-action="error_message"]').text('')})})
+                setTimeout(function () {
+                    $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2'}, 600, null, function (){$('[data-action="error_message"]').text('')})
+                }, 10000)
+                return false
+            }
             var proc_container = $('' +
                 '<div class="upload-image-container" data-pk="' + data.result.pk + '">' +
                 '   <div class="container dir_row" style="width: 100%; margin: 5px 10px;">' +
@@ -47,6 +50,7 @@ $(function() {
             $('.blackout_container').css({'z-index': '-9', 'background-color': 'rgba(0,0,0,0)'})
 
             $('[data-action="del_photo"]').one('click', del_photo);
+                return false
         }
 
     });
@@ -77,7 +81,6 @@ $(function() {
 function upload(event) {
     event.preventDefault();
     let v = $('form').get(0)
-    debugger
     var data = new FormData(v);
 
     $.ajax({
@@ -87,7 +90,7 @@ function upload(event) {
         cache: false,
         processData: false,
         contentType: false
-    });
+    })
     return false;
 }
 

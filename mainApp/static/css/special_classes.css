@@ -16,16 +16,25 @@
     justify-content: center;
     color: #fff;
     font-size: 25px;
-    padding: 20px;
+    padding: 20px 40px;
     width: 60%;
     height: fit-content;
     opacity: 0;
     z-index: -2;
+    border-radius: 10px;
 }
 
 /* Тут я думаю все логично. */
+
+.warning_message{
+    color: white;
+    border-radius: 10px;
+    font-size: 26px;
+    margin: 10px 0;
+}
+
 .error{
-    background-color: #be0002;
+    background-color: #ee2f2f;
 }
 
 .warning{
