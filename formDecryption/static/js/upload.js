@@ -30,8 +30,8 @@ $(function() {
                 }, 10000)
                 return false
             }
-            var proc_container = $('' +
-                '<div class="upload-image-container" data-pk="' + data.result.pk + '">' +
+            $('' +
+                '<div data-action="send_file" class="upload-image-container" data-pk="' + data.result.pk + '" data-url="' + data.result.url + '">' +
                 '   <div class="container dir_row" style="width: 100%; margin: 5px 10px;">' +
                 '      <div class="progress_c_bar"></div>' +
                 '      <div style="display: flex; flex-direction: column; justify-content: center;object-fit: cover; width: 45px; height: 45px; margin: -10px 10px;">' +
@@ -94,6 +94,17 @@ function upload(event) {
     return false;
 }
 
+function send_files(){
+    let files = $('[data-action="send_file"]'), keys = files.map(function(){return $(this).attr('data-pk')})
+    for(let i = 0; i < files.length; i++){
+        $.ajax({
+            url: $(this).attr('data-url') + keys[i],
+            type: 'GET'
+        })
+    }
+}
+
+
 // Функция удаления загруженного файла на сервер
 function del_photo(){
     let t = $(this)
@@ -123,6 +134,7 @@ function del_all_photos(){
     }
 }
 $(function() {
-    $('[data-action="upload_photos"]').submit(upload);
+    $('[data-action="upload_photos"]').submit(upload)
     $('[data-action="delete_all_photos"]').on('click', del_all_photos)
+    $('[data-action="send_photos"]').on('click', send_files)
 })

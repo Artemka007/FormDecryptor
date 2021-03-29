@@ -45,6 +45,7 @@ def upload_files_controller(request):
             {
                 'result': True,
                 'url_redirect': str(formModelObject.form.url),
+                'url': '/decryptor/upload/createExcel/',
                 'pk': formModelObject.pk,
                 'form_size': int(formModelObject.form.size),
                 'form_name': str(formModelObject.form.name)
@@ -65,6 +66,9 @@ def delete_upload_files_controller(request, pk):
         return JsonResponse({'result': False, 'error': str(e.__str__())}, status=400)
     # И возвращается ответ, что все прошло нормально.
     return JsonResponse({'result': True}, status=204)
+
+def send_file(request, pk):
+    pass
 
 def download_excel_file(request, pk):
     # пока комментировать лень, потом посмотрим
