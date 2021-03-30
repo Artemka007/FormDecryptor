@@ -10,7 +10,7 @@
 
 /* Сообщение об ошибке/предупреждении и т. д. */
 .warning_message_container{
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: row;
     justify-content: center;

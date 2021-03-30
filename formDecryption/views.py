@@ -1,4 +1,3 @@
-import io
 import os
 
 from django.http import JsonResponse, HttpResponse
@@ -18,11 +17,11 @@ def upload_files_controller(request):
     # Далее делаем проверку на то, что нет нанов, пустых массивов и прочих не зареганных пользователей.
     if(file is None or file == []):
         # Если c массивом файлов чет не так, то возвращаем ответ со статусом BadRequest.
-        return JsonResponse({'result': False}, status=400)
+        return JsonResponse({'result': False, 'message': 'Файлов маловато'}, status=400)
 
     if(not u.is_authenticated):
         # Если пользователь не зареган, то возвращаем ответ со статусом Unauthorized.
-        return JsonResponse({'result': False, 'error': 'Вы не авторизованны.'})
+        return JsonResponse({'result': False, 'message': 'Вы не авторизованны.'})
 
     # Перебираем массив с одним файлом
     for f in file:
@@ -37,35 +36,37 @@ def upload_files_controller(request):
         # Если что-то идет не так возвращаем ответ со статусом BadRequest, и с сообщением ошибки.
         # Это сообщение будет анимированно появляться на экране в специальном контейнере, с помощью jQuery.
         except Exception as e:
-            return JsonResponse({'result': False, 'error': str(e.__str__())}, status=400)
+            return JsonResponse({'result': False, 'message': str(e.__str__())}, status=400)
         # Ну и если объект сохранился, то возвращаем ответ со статусом Created.
         # Url нужен для взятия изображения с сервера, с последующей передачи его в нейронку.
         # А pk (сокращение от Primary Key) нужен для следующей функции
-        return JsonResponse(
-            {
-                'result': True,
-                'url_redirect': str(formModelObject.form.url),
-                'url': '/decryptor/upload/createExcel/',
-                'pk': formModelObject.pk,
-                'form_size': int(formModelObject.form.size),
-                'form_name': str(formModelObject.form.name)
-            }, status=201
-        )
+        return JsonResponse({
+            'result': True,
+            'url_redirect': str(formModelObject.form.url),
+            'url': '/decryptor/upload/createExcel/',
+            'pk': formModelObject.pk,
+            'form_size': int(formModelObject.form.size),
+            'form_name': str(formModelObject.form.name),
+            'message': 'Файл успешно загружен на сервер!'
+        }, status=201)
 
 def delete_upload_files_controller(request, pk):
     # pk ставится с помощью jquery, как аттрибут data-id к изображению крестика, при нажатии активируется функция, которая отправляет запрос
     # на урл, к которому прикоеплена эта функция, беря из аттрибута data-id соответственное значение и вставляя его в урл.
     # Далее ищется по этому ключу модель бланка.
-    formModelObject = Form.objects.get(pk=pk)
+    try:
+        formModelObject = Form.objects.get(pk=pk)
+    except Exception as e:
+        return JsonResponse({'result': False, 'message': str(e.__str__())}, status=400)
     # Дальнейшие действия были описаны выше.
     if not formModelObject:
         return JsonResponse({'result': False}, status=400)
     try:
         formModelObject.delete()
     except Exception as e:
-        return JsonResponse({'result': False, 'error': str(e.__str__())}, status=400)
+        return JsonResponse({'result': False, 'message': str(e.__str__())}, status=400)
     # И возвращается ответ, что все прошло нормально.
-    return JsonResponse({'result': True}, status=204)
+    return JsonResponse({'result': True, 'message': 'Файл успешно удален!'}, status=200)
 
 def send_file(request, pk):
     pass
@@ -76,16 +77,16 @@ def download_excel_file(request, pk):
     path = excel_file_object.get_file_full_url()
 
     if pk == 'undefined':
-        return HttpResponse({'result': False, 'error': 'Что-то пошло не так... Повторите попытку.'})
+        return HttpResponse({'result': False, 'message': 'Что-то пошло не так... Повторите попытку.'})
 
     if not request.user.is_authenticated:
-        return HttpResponse({'result': False, 'error': 'Пользователь не авторизован.'})
+        return HttpResponse({'result': False, 'message': 'Пользователь не авторизован.'})
 
     if excel_file_object is None:
-        return HttpResponse({'result': False, 'error': 'Объект с этим id не создан.'})
+        return HttpResponse({'result': False, 'message': 'Объект с этим id не создан.'})
 
     if not os.path.exists(path):
-        return HttpResponse({'result': False, 'error': 'Файл не найден'})
+        return HttpResponse({'result': False, 'message': 'Файл не найден'})
 
     fp = open(path, "rb")
 
@@ -108,4 +109,4 @@ def test_download_excel_file(request):
         fp.close()
         response['Content-Disposition'] = 'attachment; filename=Test.xlsx'
         return response
-    return HttpResponse({'error': 'Файл не найден'})
+    return HttpResponse({'result': False, 'message': 'Файл не найден'})
