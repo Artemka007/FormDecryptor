@@ -10,7 +10,6 @@
 * #### [pillow](https://github.com/python-pillow/Pillow)
 * #### [opencv](https://github.com/opencv/opencv)
 * #### [numpy](https://github.com/numpy/numpy)
-* #### [django-rest-framework](https://github.com/encode/django-rest-framework)
 * #### [jQuery](https://github.com/jquery/jquery)
 * #### [jquery-file-upload](https://github.com/blueimp/jQuery-File-Upload)
 * #### [jquery-iframe-transport](https://github.com/cmlenz/jquery-iframe-transport)
