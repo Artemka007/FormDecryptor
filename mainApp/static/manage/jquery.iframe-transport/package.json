@@ -1,0 +1,59 @@
+{
+  "_from": "jquery.iframe-transport",
+  "_id": "jquery.iframe-transport@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-mKuuhb6s4cw2JkXnqHNg/5QYF18=",
+  "_location": "/jquery.iframe-transport",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "jquery.iframe-transport",
+    "name": "jquery.iframe-transport",
+    "escapedName": "jquery.iframe-transport",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery.iframe-transport/-/jquery.iframe-transport-1.0.0.tgz",
+  "_shasum": "98abae85beace1cc362645e7a87360ff9418175f",
+  "_spec": "jquery.iframe-transport",
+  "_where": "D:\\Pojects\\FormDecryptor",
+  "author": {
+    "name": "Christopher Lenz"
+  },
+  "bugs": {
+    "url": "https://github.com/cmlenz/jquery-iframe-transport/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "jQuery plugin that implements an iframe transport so that ajax calls support the uploading of files using standard HTML file input fields",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-docco": "~0.3.3",
+    "grunt-gh-pages": "~0.9.1",
+    "grunt-shell": "~0.6.4",
+    "multiparty": "~3.2.4"
+  },
+  "directories": {
+    "demo": "demo"
+  },
+  "homepage": "https://github.com/cmlenz/jquery-iframe-transport#readme",
+  "license": "MIT",
+  "main": "jquery.iframe-transport.js",
+  "name": "jquery.iframe-transport",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cmlenz/jquery-iframe-transport.git"
+  },
+  "version": "1.0.0"
+}

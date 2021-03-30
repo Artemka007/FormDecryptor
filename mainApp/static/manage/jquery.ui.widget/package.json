@@ -1,0 +1,55 @@
+{
+  "_from": "jquery.ui.widget",
+  "_id": "jquery.ui.widget@1.10.3",
+  "_inBundle": false,
+  "_integrity": "sha1-LO7PxkmVQSZD7rlQjSGX6pPAL7M=",
+  "_location": "/jquery.ui.widget",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "jquery.ui.widget",
+    "name": "jquery.ui.widget",
+    "escapedName": "jquery.ui.widget",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery.ui.widget/-/jquery.ui.widget-1.10.3.tgz",
+  "_shasum": "2ceecfc64995412643eeb9508d2197ea93c02fb3",
+  "_spec": "jquery.ui.widget",
+  "_where": "D:\\Pojects\\FormDecryptor",
+  "author": {
+    "name": "jQuery Foundation",
+    "url": "http://jqueryui.com"
+  },
+  "bugs": {
+    "url": "http://bugs.jqueryui.com/"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Create stateful jQuery plugins using the same abstraction as all jQuery UI widgets.",
+  "homepage": "http://api.jqueryui.com/jQuery.widget/",
+  "keywords": [
+    "jquery",
+    "ui",
+    "widget"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "name": "jquery.ui.widget",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jquery/jquery-ui.git"
+  },
+  "title": "jQuery UI Widget",
+  "version": "1.10.3"
+}
