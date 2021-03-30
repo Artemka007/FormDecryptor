@@ -4,6 +4,7 @@ from django import forms
 
 
 class SignUpForm(UserCreationForm):
+    email = forms.EmailField(label='Email address: ', required=True)
     class Meta:
         model = User
         # Здесь к стандартной форме, от которой наследуется эта форма добавляем имя и фамилию пользователя

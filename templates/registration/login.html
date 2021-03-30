@@ -10,7 +10,7 @@
             <div class="container dir_row" style="width: 100%; justify-content: center;">
                 <div class="container" style="width: 100%;">
                     {% for error in form.non_field_errors %}
-                        <span class="error warning_message">{{ error }}</span>
+                        <span class="error warning_message" style="font-size: 16px; padding: 10px;">{{ error }}</span>
                     {% endfor %}
                     <div class="inp_container">
                         <input class="inp inp_default" placeholder="Логин..." type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">

@@ -1,10 +1,11 @@
 {
-  "name": "untitled",
+  "name": "formdecryptor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "blueimp-file-upload": "file:mainApp/static/manage/blueimp-file-upload",
     "jquery": "file:mainApp/static/manage/jquery",
+    "jquery-form": "^4.3.0",
     "jquery.iframe-transport": "file:mainApp/static/manage/jquery.iframe-transport",
     "jquery.ui.widget": "file:mainApp/static/manage/jquery.ui.widget"
   },

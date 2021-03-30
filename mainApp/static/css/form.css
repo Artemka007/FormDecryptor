@@ -12,7 +12,6 @@
     box-sizing: border-box;
     border-bottom: rgba(0,0,0,0.4) solid 2px;
     width: 100%;
-    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -36,6 +35,7 @@
     display: flex;
     flex-direction: column;
     border-bottom: rgba(0,0,0,0.4) solid 2px;
+    padding: 25px 0;
 }
 
 .inp{
@@ -43,11 +43,24 @@
     border-radius: 10px;
     font-size: 16px;
     padding: 10px;
-    margin-bottom: 25px;
+    margin-top: 25px;
     width: 100%;
     background-color: white;
     outline: none;
     transition: all .2s;
+}
+
+.inp:first-child{
+    margin: 0;
+}
+
+.inp.err, .inp.err:focus, .inp.err:hover{
+    border: rgb(236, 68, 68) solid 2px;
+}
+
+span.err{
+    color: rgb(236, 68, 68);
+    font-size: 14px;
 }
 
 .inp_default:hover{
