@@ -1,4 +1,4 @@
-# [FormDecryptor](https://github.com/Artemka007/FormDecryptor)
+# [FormDecryptor](https://github.com/Artemka007/FormDecryptor) 1.0.0
 
 ## Команда:
 * #### Лымарь Виктор
