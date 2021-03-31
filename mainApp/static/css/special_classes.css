@@ -22,7 +22,7 @@
     opacity: 0;
     z-index: -2;
     border-radius: 10px;
-    bottom: 0;
+    bottom: -200px;
 }
 
 /* Тут я думаю все логично. */
@@ -100,7 +100,27 @@
 
 }
 
-@media (max-width: 650px){
+.close{
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.close:hover{
+    color: rgb(198, 198, 198);
+}
+
+@media (max-width: 850px){
+    .warning_message_container{
+        padding: 5px 10px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .warning_message{
+        font-size: 20px;
+    }
+
     .bt{
         padding: 4px 13px;
         font-size: 14px;

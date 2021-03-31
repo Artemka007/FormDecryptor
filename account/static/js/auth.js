@@ -8,17 +8,17 @@ const display_warnings = {
     modal_window: function (data, add_class){
         let modal_window = $('[data-action="modal_error_window"]')
         modal_window.addClass(add_class)
-        modal_window.animate({'opacity': 1, 'z-index': '9'}, 600)
+        modal_window.animate({'opacity': 1, 'z-index': '9', 'bottom': '200px'}, 600)
         $('[data-action="error_message"]').text(data.message)
         $('[data-action="close_modal_error"]').on('click', function (){
-            $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2'}, 0, null, function (){
+            $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 0, null, function (){
                 $('[data-action="error_message"]').text('')
                 $('[data-action="modal_error_window"]').removeClass(add_class)
             })
         })
         setTimeout(function () {
             modal_window.removeClass('error')
-            modal_window.animate({'opacity': 0, 'z-index': '-2'}, 600, null, function (){
+            modal_window.animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 600, null, function (){
                 $('[data-action="error_message"]').text('')
                 $('[data-action="modal_error_window"]').removeClass(add_class)
             })
@@ -29,21 +29,18 @@ const display_warnings = {
 const auth = {
     button_text: '',
 
-    login: function (event){
-
-    },
-
-    signup: function (event) {
+    auth: function (event) {
         event.preventDefault()
         auth.loading()
-        $('[data-action="login_form"]').ajaxSubmit({
+        $('[data-action="auth_form"]').ajaxSubmit({
             success: function(data) {
-                let form = $('[data-action="login_form"]')
+                let form = $('[data-action="auth_form"]')
                 form.find('input').removeClass('err')
                 form.find('.err').remove()
                 if (data.result) {
                     display_warnings.modal_window(data, 'ok')
                     auth.end_loading()
+                    location.href = '/account/login/'
                 }
                 else {
                     display_warnings.modal_window(data, 'error')
@@ -56,7 +53,7 @@ const auth = {
     },
 
     loading: function (){
-        let lb = $('[data-action="login_button"]')
+        let lb = $('[data-action="auth_button"]')
         auth.button_text = lb.text()
         lb.text('')
         lb.html('<svg class="spinner login_spinner" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>Loading...')
@@ -64,7 +61,7 @@ const auth = {
     },
 
     end_loading: function (){
-        let lb = $('[data-action="login_button"]')
+        let lb = $('[data-action="auth_button"]')
         lb.html('')
         lb.text(auth.button_text)
         lb.prop("disabled", false);
@@ -74,5 +71,5 @@ const auth = {
 }
 
 $(function (){
-    $('[data-action="login_form"]').on('submit', auth.signup)
+    $('[data-action="auth_form"]').on('submit', auth.auth)
 })

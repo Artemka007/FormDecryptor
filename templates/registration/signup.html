@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container dir_row" style="width: 100%; justify-content: center">
     <div class="container">
-    <form data-action="login_form" method="POST" class="form">
+    <form data-action="auth_form" method="POST" class="form">
     <div class="form_title">Регистрация</div>
     {% csrf_token %}
         <div class="container dir_row" style="width: 100%; justify-content: center;">
@@ -16,7 +16,7 @@
                     <input class="inp inp_default" placeholder="Пароль..." type="password" name="password1" autocomplete="new-password" id="id_password1">
                     <input class="inp inp_default" placeholder="Подтверждение пароля..." type="password" name="password2" autocomplete="new-password" id="id_password2">
                 </div>
-                <button data-action="login_button" type="submit" class="bt bt_default" style="font-size: 19px; width: fit-content; margin-right: 0; margin-left: 0;">Регистрация</button>
+                <button data-action="auth_button" type="submit" class="bt bt_default" style="font-size: 19px; width: fit-content; margin-right: 0; margin-left: 0;">Регистрация</button>
             </div>
         </div>
     </form>

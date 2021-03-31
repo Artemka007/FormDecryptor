@@ -1,7 +1,13 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from account.forms import SignUpForm
+
+def validator(errors):
+    res = {}
+    for e in errors:
+        res[e] = errors[e]
+    return res
 
 def register_view(request):
     if request.method == 'POST':
@@ -13,13 +19,9 @@ def register_view(request):
             data['message'] = 'Вы аутентифицированы! Поздравляем!'
             return JsonResponse(data)
         else:
-            res = {}
-            for k in form.errors:
-                res[k] = form.errors[k]
-
             data['result'] = False
             data['message'] = 'Пожалуйста, введите корректные данные и повторите попытку.'
-            data['res'] = res
+            data['res'] = validator(form.errors)
             return JsonResponse(data)
 
     return render(request, 'registration/signup.html')

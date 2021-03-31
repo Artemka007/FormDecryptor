@@ -17,20 +17,22 @@ $(function() {
 
         // Как загрузка заканчивается, дабавляется изображение и на него вешаются события
         done: function(e, data) {
+            let display = $(window).width() > 850 ? "display: flex;" : "display: none;", file_size = $(window).width() > 850 ? '<div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px;">' + formatFileSize(data.result.form_size) + '</div>' : ''
+
             if(!data.result.result){
                 modal_window(data.result, 'error')
                 return false
             }
             else {
-                let file = $('' +
+                $('' +
                     '<div data-action="send_file" class="upload-image-container" data-pk="' + data.result.pk + '" data-url="' + data.result.url + '">' +
                     '   <div class="container dir_row" style="width: 100%; margin: 5px 10px;">' +
                     '      <div class="progress_c_bar"></div>' +
-                    '      <div style="display: flex; flex-direction: column; justify-content: center;object-fit: cover; width: 45px; height: 45px; margin: -10px 10px;">' +
+                    '      <div style="' + display + ' flex-direction: column; justify-content: center;object-fit: cover; width: 45px; height: 45px; margin: -10px 10px;">' +
                     '         <img src="' + data.result.url_redirect + '" alt=""/>' +
                     '      </div>'+
                     '      <div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px; border-left: rgba(0,0,0,0.4) solid 1px;">' + data.result.form_name + '</div>' +
-                    '      <div style="padding: 5px 10px;  border-right: rgba(0,0,0,0.4) solid 1px;">' + formatFileSize(data.result.form_size) + '</div>'+
+                    file_size +
                     '   </div>' +
                     '   <div data-url="/account/profile/photos/delete/" data-action="del_photo" data-id="' + data.result.pk + '" class="question_about_edit_message_close" style="display: flex; justify-content: flex-end; float:right; width: 100%; ">' +
                     '       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">' +
@@ -39,7 +41,7 @@ $(function() {
                     '   </div>'+
                     '</div>').appendTo(ul);
 
-                let del_photo = $('[data-id="' + data.result.pk + '"]').on('click', function() { file_actions.del_file(data.result.pk)});
+                $('[data-id="' + data.result.pk + '"]').on('click', function() { file_actions.del_file(data.result.pk)} );
 
                 modal_window(data.result, 'ok')
                 return false
@@ -54,10 +56,6 @@ $(function() {
 
     // Функция, которая возвращает формат файла
     function formatFileSize(bytes) {
-        if (typeof bytes !== 'number') {
-            return '';
-        }
-
         if (bytes >= 1000000000) {
             return (bytes / 1000000000).toFixed(2) + ' GB';
         }
@@ -142,17 +140,17 @@ const file_actions = {
 function modal_window(data, add_class){
     let modal_window = $('[data-action="modal_error_window"]')
     modal_window.addClass(add_class)
-    modal_window.animate({'opacity': 1, 'z-index': '9'}, 600)
+    modal_window.animate({'opacity': 1, 'z-index': '9', 'bottom': '200px'}, 600)
     $('[data-action="error_message"]').text(data.message)
     $('[data-action="close_modal_error"]').on('click', function (){
-        $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2'}, 0, null, function (){
+        $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 0, null, function (){
             $('[data-action="error_message"]').text('')
             $('[data-action="modal_error_window"]').removeClass(add_class)
         })
     })
     setTimeout(function () {
         modal_window.removeClass('error')
-        modal_window.animate({'opacity': 0, 'z-index': '-2'}, 600, null, function (){
+        modal_window.animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 600, null, function (){
             $('[data-action="error_message"]').text('')
             $('[data-action="modal_error_window"]').removeClass(add_class)
         })

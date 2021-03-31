@@ -3,7 +3,6 @@
 {% block content %}
     <div class="container dir_row" style="width: 100%; justify-content: center">
     <div class="container">
-        <!--data-action="login_form"-->
         <form method="POST" class="form">
 
         <div class="form_title">Вход</div>
@@ -17,13 +16,12 @@
                         <input class="inp inp_default" placeholder="Логин..." type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
                         <input class="inp inp_default" placeholder="Пароль..." type="password" name="password" autocomplete="current-password" required="" id="id_password">
                     </div>
-                    <!--data-action="login_button"-->
                     <button type="submit" class="bt bt_default_gradient" style="font-size: 19px; width: fit-content; margin-left: 0; margin-right: 0;">Войти</button>
                 </div>
             </div>
         </form>
         <div class="links_container">
-            <a class="form_link" href="{% url 'reset_password' %}">Forgot password</a>
+            <a class="form_link" href="{% url 'reset_password' %}">Сброс пароля</a>
         </div>
     </div>
     </div>

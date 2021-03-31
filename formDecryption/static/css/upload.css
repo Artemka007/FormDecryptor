@@ -81,7 +81,7 @@
 
 .spinner circle {
     stroke: rgb(201, 210, 255);
-    animation: dash 1.5s ease-in-out infinite;
+    animation: anim 1.5s ease-in-out infinite;
     stroke-linecap: round;
 }
 
@@ -113,7 +113,13 @@
     font-weight: bold;
 }
 
-@keyframes dash {
+@media (max-height: 850px) {
+    .progress_ul{
+        height: 400px;
+    }
+}
+
+@keyframes anim {
     0% {
         stroke-dasharray: 1, 150;
         stroke-dashoffset: 0;

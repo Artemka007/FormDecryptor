@@ -8,13 +8,17 @@ p, a, pre, code{
     font-size: 17px;
 }
 
-.content{
+.content_container{
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
     padding-top: 50px;
     box-sizing: border-box;
+}
+
+.content{
+    width: 60%;
 }
 
 .blackout_container{
@@ -86,6 +90,17 @@ p, a, pre, code{
     justify-content: center;
 }
 
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-top:  rgba(0, 0, 0, 0.2) solid 1px;
+    margin-top: 200px;
+    min-height: 100px;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
 @media (max-width: 1650px) {
     .nav_panel .nav_auth_item{
         margin-right: 3%;
@@ -96,26 +111,34 @@ p, a, pre, code{
 }
 
 @media (max-width: 850px) {
+    .content_container{
+        padding-top: 250px;
+    }
+
+    .content{
+        width: 98%;
+    }
+
     .nav_panel{
         flex-direction: column;
         padding: 0;
     }
 
     .nav_panel .nav_auth_item{
-        margin-right: 0%;
+        margin-right: 0;
         flex-direction: column;
         width: 100%;
         text-align: center;
     }
 
     .nav_panel .nav_main_item{
-        margin-left: 0%;
+        margin-left: 0;
         flex-direction: column;
         width: 100%;
         text-align: center;
     }
     .nav_panel .nav_item, .nav_panel .nav_item_active{
-        margin-left: 0%;
+        margin-left: 0;
         width: 100%;
         text-align: center;
     }
@@ -130,20 +153,7 @@ p, a, pre, code{
         padding: 10px 0;
         justify-content: center;
     }
-}
 
-.footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    border-top:  rgba(0, 0, 0, 0.2) solid 1px;
-    margin-top: 200px;
-    min-height: 100px;
-    box-sizing: border-box;
-    padding: 15px;
-}
-
-@media (max-width: 850px){
     .footer{
         flex-direction: column;
     }
