@@ -1,25 +1,13 @@
 {
   "name": "formdecryptor",
   "version": "0.1.0",
-  "private": true,
+  "lockfileVersion": 1,
+  "requires": true,
   "dependencies": {
-    "blueimp-file-upload": "file:mainApp/static/manage/blueimp-file-upload",
-    "jquery": "file:mainApp/static/manage/jquery",
+    "blueimp-file-upload": "^10.31.0",
+    "jquery": "^3.6.0",
     "jquery-form": "^4.3.0",
-    "jquery.iframe-transport": "file:mainApp/static/manage/jquery.iframe-transport",
-    "jquery.ui.widget": "file:mainApp/static/manage/jquery.ui.widget"
-  },
-  "scripts": {},
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "jquery.iframe-transport": "^1.0.0",
+    "jquery.ui.widget": "^1.10.3"
   }
 }
