@@ -54,7 +54,7 @@ $(function() {
         e.preventDefault();
     });
 
-    // Функция, которая возвращает формат файла
+    // Функция, которая возвращает размер файла
     function formatFileSize(bytes) {
         if (bytes >= 1000000000) {
             return (bytes / 1000000000).toFixed(2) + ' GB';
@@ -93,7 +93,9 @@ const file_actions = {
 
     // отправка файлов на сервер для их последующей обработки осуществляется этой функцией
     send_files: function (event, is_test) {
-        let files = $('[data-action="send_file"]'), keys = files.map(function(){return $(this).attr('data-pk')})
+        let files = $('[data-action="send_file"]'), keys = files.map(function(){
+            return $(this).attr('data-pk')
+        })
         // пока не готов excel работает тестовый вариант
         if(is_test){
             console.log(files)

@@ -57,14 +57,14 @@ def delete_upload_files_controller(request, pk):
     try:
         formModelObject = Form.objects.get(pk=pk)
     except Exception as e:
-        return JsonResponse({'result': False, 'message': str(e.__str__())}, status=400)
+        return JsonResponse({'result': False, 'message': e.__str__()}, status=400)
     # Дальнейшие действия были описаны выше.
     if not formModelObject:
         return JsonResponse({'result': False}, status=400)
     try:
         formModelObject.delete()
     except Exception as e:
-        return JsonResponse({'result': False, 'message': str(e.__str__())}, status=400)
+        return JsonResponse({'result': False, 'message': e.__str__()}, status=400)
     # И возвращается ответ, что все прошло нормально.
     return JsonResponse({'result': True, 'message': 'Файл успешно удален!'}, status=200)
 
