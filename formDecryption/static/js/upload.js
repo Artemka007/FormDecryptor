@@ -17,7 +17,12 @@ $(function() {
 
         // Как загрузка заканчивается, дабавляется изображение и на него вешаются события
         done: function(e, data) {
-            let display = $(window).width() > 850 ? "display: flex;" : "display: none;", file_size = $(window).width() > 850 ? '<div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px;">' + formatFileSize(data.result.form_size) + '</div>' : ''
+            let display = $(window).width() > 850
+                ? "display: flex;"
+                : "display: none;",
+            file_size = $(window).width() > 850
+                ? '<div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px;">' + formatFileSize(data.result.form_size) + '</div>'
+                : ''
 
             if(!data.result.result){
                 modal_window(data.result, 'error')
@@ -31,7 +36,7 @@ $(function() {
                     '      <div style="' + display + ' flex-direction: column; justify-content: center;object-fit: cover; width: 45px; height: 45px; margin: -10px 10px;">' +
                     '         <img src="' + data.result.url_redirect + '" alt=""/>' +
                     '      </div>'+
-                    '      <div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px; border-left: rgba(0,0,0,0.4) solid 1px;">' + data.result.form_name + '</div>' +
+                    '      <div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px; border-left: rgba(0,0,0,0.4) solid 1px;">' + data.result.form_name.toString().split('/')[1] + '</div>' +
                     file_size +
                     '   </div>' +
                     '   <div data-url="/account/profile/photos/delete/" data-action="del_photo" data-id="' + data.result.pk + '" class="question_about_edit_message_close" style="display: flex; justify-content: flex-end; float:right; width: 100%; ">' +
@@ -93,15 +98,27 @@ const file_actions = {
 
     // отправка файлов на сервер для их последующей обработки осуществляется этой функцией
     send_files: function (event, is_test) {
-        let files = $('[data-action="send_file"]'), keys = files.map(function(){
+        let files = $('[data-action="send_file"]'), keys = files.map(function() {
             return $(this).attr('data-pk')
         })
         // пока не готов excel работает тестовый вариант
+
         if(is_test){
-            console.log(files)
-            console.log(keys)
-            modal_window({message: 'Test is done.'}, 'ok')
+            if(files.length === 0){
+                modal_window({message: 'Test is done.'}, 'error')
+            }
+            else{
+                console.log(files)
+                console.log(keys)
+                modal_window({message: 'Test is done.'}, 'ok')
+                return false
+            }
         }
+
+        if(files.length === 0){
+            modal_window({message: 'Test is done.'}, 'error')
+        }
+
         else{
             // перебираем и отправляем на сервер все id файлов
             for(let i = 0; i < files.length; i++){

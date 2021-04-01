@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -126,6 +125,7 @@ STATIC_ROOT = '/djangoProject1/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 SERVER_EMAIL = 'admin@mail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
