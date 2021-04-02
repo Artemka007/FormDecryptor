@@ -53,7 +53,6 @@
         </div>
     {% endwith %}
 </nav>
-<div class="blackout_container"></div>
 <div class="content_container" >
     <div class="content">
         <!-- All content of this web-site -->
@@ -61,10 +60,11 @@
 
         {% endblock %}
         <footer class="footer">
-            <div class="footer_item">&copy; Hakaton Team - <a href="{% url "about" %}">Описание проекта</a> </div>
+            <div class="footer_item">&copy; Hakaton Team </div>
             <a href="{% url "index" %}" class="footer_item">Главная страница</a>
             <a href="{% url "contacts" %}" class="footer_item">Контакты</a>
             <a class="footer_item" href="https://github.com/Artemka007/FormDecryption">Проект на GitHub</a>
+            <a class="footer_item" href="{% url 'about' %}">INSTRUCTION</a>
             <a class="footer_item" href="https://docs.google.com/document/d/11gZ-GqUpfL4QKW7UxLPR68zDaDCGLPgG8h9TjmVC_BM/edit#">DOCS</a>
         </footer>
     </div>

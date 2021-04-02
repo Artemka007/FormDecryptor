@@ -20,7 +20,7 @@ def create_about(request):
             form = CreateInstructionForm(request.POST, instance=Instruction.objects.get(pk=1))
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect('/about/')
+                return HttpResponseRedirect('/instruction/')
             return render(request, 'content/create_instruction.html', {'form': form})
         return render(request, 'content/create_instruction.html', {'form': form})
     return HttpResponseRedirect('/')

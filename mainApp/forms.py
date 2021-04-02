@@ -5,7 +5,7 @@ from mainApp.models import Instruction
 
 
 class CreateInstructionForm(forms.ModelForm):
-    text = forms.CharField(widget=CKEditorWidget())
+    text = forms.CharField(widget=CKEditorWidget(), label='')
     class Meta:
         model = Instruction
         fields = ['text']

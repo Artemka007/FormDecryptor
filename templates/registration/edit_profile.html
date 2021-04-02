@@ -25,6 +25,14 @@
     <script type="application/javascript">
     $(function () {
         $('.inp_container input').prop('required', false)
+        $('.inp_container input').prop('disabled', true)
+        $('[data-action="auth_button"]').prop('disabled', true)
+        $('.inp_container input').on('input', function (){
+            $('[data-action="auth_button"]').prop('disabled', false)
+        $('.inp_container input').prop('disabled', false)
+        })
     })
+
+
     </script>
 {% endblock %}
