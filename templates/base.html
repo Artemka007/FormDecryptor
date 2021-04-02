@@ -34,7 +34,12 @@
             <!-- If user is authenticated we see him full name and link to logout in navigation panel -->
             {% if request.user.is_authenticated %}
                 <!-- We need to create profile settings page -->
-                <a href="{% if request.user.is_superuser %}/admin{% else %}{% endif %}" class="{% if un == 'settings' %}nav_item_active{% else %}nav_item{% endif %}">{% if request.user.get_full_name %}{{ request.user.get_full_name }}{% else %}{{ request.user.username }}{% endif %}</a>
+                <div class="submenu_container">
+                    <a class="nav_item nav_item_submenu">{{ request.user.username }}</a>
+                    <div class="submenu">
+                        <a class="submenu_item" href="{% url 'change_password' %}">Change password</a>
+                    </div>
+                </div>
                 <a href="{% url 'logout' %}" class="{% if un == 'logout' %}nav_item_active{% else %}nav_item{% endif %}">Выйти</a>
             <!-- Else we see link to register and to login -->
             {% else %}

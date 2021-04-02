@@ -43,7 +43,6 @@ p, a, pre, code{
 }
 
 .nav_panel .nav_item, .nav_panel .nav_item_active, .nav_title{
-    box-sizing: border-box;
     width: fit-content;
     height: fit-content;
     color: #fff;
@@ -52,6 +51,43 @@ p, a, pre, code{
     cursor: pointer;
     text-decoration: none;
     transition: background-color .2s;
+}
+
+.submenu_container{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.submenu{
+    background-color: #FFF;
+    box-shadow: 7px 7px 8px rgba(50, 50, 50, 0.75);
+    position: absolute;
+    top: 100%;
+    width: fit-content;
+    z-index: 10;
+    transform: scaleY(0);
+    transform-origin: 0 0;
+    transition: transform .2s;
+    box-sizing: border-box;
+    padding: 7px 17px;
+}
+
+.submenu .submenu_item{
+    font-size: 20px;
+    padding: 7px 17px;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(0,0,0,0);
+    text-decoration: none;
+    transition: all .2s;
+}
+
+.submenu .submenu_item:hover{
+    text-decoration: underline;
+}
+
+.nav_item_submenu:hover ~ .submenu, .submenu:hover{
+    transform: none;
 }
 
 .nav_title{
