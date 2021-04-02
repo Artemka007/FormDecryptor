@@ -55,5 +55,5 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             return JsonResponse({'result': True, 'message': 'Редактирование профиля завершенно успешно!'})
-        return JsonResponse({'result': False, 'message': 'Что-то пошло не так... Введите коректные данные и повторите попытку', 'res': validator(form.errors)})
+        return JsonResponse({'result': False, 'message': 'Пожалуйста, введите корректные данные и повторите попытку.', 'res': validator(form.errors)})
     return render(request, 'registration/edit_profile.html', {'form': form})
