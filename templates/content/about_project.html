@@ -1,20 +1,5 @@
 {% extends 'base.html' %}
 {% block title %}About our project{% endblock %}
 {% block content %}
-    <div class="container dir_row" style="justify-content: center">
-    <h1><a class="form_link " style="font-size: 36px; color: rgba(0, 0, 0, 0.6);" href="{% url 'index' %}">FormDecryptor</a></h1>
-    </div>
-    <div class="container">
-    <div class="text">
-        <p class="first_text">FormDecryptor - это удобная платформа для распознавания ответов с бланков олимпиад.</p>
-        <div class="container dir_row">
-
-            <img style="width: 500px;" src="/media/manage/images/img(2).jpg" alt=""/>
-            <div>
-                <p>Вы можете загрузить файл, нажав на кнопку 'Загрузить' или перетащив файл или папку с файлами в нижний контейнер.</p>
-                <p>Если Вы хотите удалить файл нажмите на крестик справа от информации о нем, если удалить все загруженные файлы, нажмите на кнопку "Отмена".</p>
-            </div>
-        </div>
-    </div>
-    </div>
+    {% autoescape off %}{{ instruction.text }}{% endautoescape %}
 {% endblock %}

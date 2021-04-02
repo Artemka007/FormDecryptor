@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'account',
     'mainApp',
     'formDecryption',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +125,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/djangoProject1/static/'
 MEDIA_URL = '/media/'
+CKEDITOR_UPLOAD_PATH = "/uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 1000,
+    },
+}
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGIN_URL = '/account/login/'

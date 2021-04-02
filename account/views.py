@@ -38,7 +38,7 @@ def change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)
             data['result'] = True
-            data['message'] = 'Вы сменили пароль!'
+            data['message'] = 'Вы успешно сменили пароль!'
             return JsonResponse(data)
         else:
             data['result'] = False

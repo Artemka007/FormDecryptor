@@ -18,6 +18,8 @@
     <script type="text/javascript" src="{% static 'manage/jquery-form/dist/jquery.form.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/upload.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/auth.js' %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -29,6 +31,7 @@
             </div>
             <a href="{% url "index" %}" class="{% if un == 'index' %}nav_item_active{% else %}nav_item{% endif %}">Главная страница</a>
             <a href="{% url "decryptor_index" %}" class="{% if un == 'decryptor_index' %}nav_item_active{% else %}nav_item{% endif %}">Сканер бланков</a>
+            <a href="{% url "about" %}" class="{% if un == 'about' %}nav_item_active{% else %}nav_item{% endif %}">Инструкция</a>
         </div>
         <div class="nav_auth_item">
             <!-- If user is authenticated we see him full name and link to logout in navigation panel -->
