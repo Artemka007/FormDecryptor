@@ -73,17 +73,15 @@ def send_file(request, pk):
 
 def download_excel_file(request, pk):
     # пока комментировать лень, потом посмотрим
-    excel_file_object = ExcelFile.objects.get(pk=pk)
-    path = excel_file_object.get_file_full_url()
+    try:
+        excel_file_object = ExcelFile.objects.get(pk=pk)
+    except:
+        return HttpResponse({'result': False, 'message': 'Объект с этим id не создан.'})
 
-    if pk == 'undefined':
-        return HttpResponse({'result': False, 'message': 'Что-то пошло не так... Повторите попытку.'})
+    path = excel_file_object.get_file_full_url()
 
     if not request.user.is_authenticated:
         return HttpResponse({'result': False, 'message': 'Пользователь не авторизован.'})
-
-    if excel_file_object is None:
-        return HttpResponse({'result': False, 'message': 'Объект с этим id не создан.'})
 
     if not os.path.exists(path):
         return HttpResponse({'result': False, 'message': 'Файл не найден'})
@@ -93,7 +91,7 @@ def download_excel_file(request, pk):
     response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
     fp.close()
 
-    response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name())
+    response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name()).split('/')[1]
 
     return response
 

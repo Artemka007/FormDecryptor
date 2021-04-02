@@ -16,7 +16,7 @@ def register_view(request):
         if form.is_valid():
             form.save()
             data['result'] = True
-            data['message'] = 'Вы аутентифицированы! Поздравляем!'
+            data['message'] = 'Вы авторизованы! Поздравляем! Теперь Вы можете войти в систему, перейдя по <a href="/account/login/">этой ссылке</a>'
             return JsonResponse(data)
         else:
             data['result'] = False

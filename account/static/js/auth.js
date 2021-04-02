@@ -9,7 +9,7 @@ const display_warnings = {
         let modal_window = $('[data-action="modal_error_window"]')
         modal_window.addClass(add_class)
         modal_window.animate({'opacity': 1, 'z-index': '9', 'bottom': '200px'}, 600)
-        $('[data-action="error_message"]').text(data.message)
+        $('[data-action="error_message"]').html(data.message)
         $('[data-action="close_modal_error"]').on('click', function (){
             $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 0, null, function (){
                 $('[data-action="error_message"]').text('')
@@ -29,17 +29,16 @@ const display_warnings = {
 const auth = {
     button_text: '',
 
-    auth: function (event) {
+    signup: function (event) {
         event.preventDefault()
         auth.loading()
         $('[data-action="auth_form"]').ajaxSubmit({
             success: function(data) {
+                event.preventDefault()
                 let form = $('[data-action="auth_form"]')
                 form.find('input').removeClass('err')
                 form.find('.err').remove()
                 if (data.result) {
-                    display_warnings.modal_window(data, 'ok')
-                    auth.end_loading()
                     location.href = '/account/login/'
                 }
                 else {
@@ -71,5 +70,5 @@ const auth = {
 }
 
 $(function (){
-    $('[data-action="auth_form"]').on('submit', auth.auth)
+    $('[data-action="auth_form"]').on('submit', auth.signup)
 })
