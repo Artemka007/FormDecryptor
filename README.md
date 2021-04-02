@@ -27,6 +27,4 @@
 ## Контакты:
 * #### эл. почта: kopylovartyom007@gmail.com
 * #### telegram: @artyomka007 или Лымарь Виктор
-* #### контактные телефоны: +79126865578, +79264287907
-
-## Ссылка на полную документацию https://docs.google.com/document/d/11gZ-GqUpfL4QKW7UxLPR68zDaDCGLPgG8h9TjmVC_BM
+* #### контактные телефоны: +79126865578, +7926428790
