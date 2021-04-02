@@ -1,9 +1,11 @@
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from account.forms import SignUpForm
+from account.forms import SignUpForm, EditUserForm
+
 
 def validator(errors):
     res = {}
@@ -18,7 +20,7 @@ def register_view(request):
         if form.is_valid():
             form.save()
             data['result'] = True
-            return JsonResponse(data)
+            return HttpResponseRedirect('/account/login/')
         else:
             data['result'] = False
             data['message'] = 'Пожалуйста, введите корректные данные и повторите попытку.'
@@ -44,3 +46,14 @@ def change_password(request):
             data['res'] = validator(form.errors)
             return JsonResponse(data)
     return render(request, 'registration/password_change_form.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    form = EditUserForm(instance=request.user)
+    if request.method == 'POST':
+        form = EditUserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'result': True, 'message': 'Редактирование профиля завершенно успешно!'})
+        return JsonResponse({'result': False, 'message': 'Что-то пошло не так... Введите коректные данные и повторите попытку', 'res': validator(form.errors)})
+    return render(request, 'registration/edit_profile.html', {'form': form})

@@ -29,43 +29,37 @@ const display_warnings = {
 const auth = {
     button_text: '',
 
-    signup: function (event) {
+    auth: function(event, form_data_action) {
         event.preventDefault()
         auth.loading()
-        $('[data-action="signup_form"]').ajaxSubmit({
+        $('[data-action="' + form_data_action + '"]').ajaxSubmit({
             success: function(data) {
-                event.preventDefault()
-                let form = $('[data-action="signup_form"]')
+                let form = $('[data-action=' + form_data_action + ']')
                 form.find('input').removeClass('err')
                 form.find('.err').remove()
-                if (data.result) {
-                    location.href = '/account/login/'
+                if(data.result){
+                    display_warnings.modal_window(data, 'ok')
                 }
-                else {
+                else{
                     display_warnings.modal_window(data, 'error')
                     display_warnings.validator(data.res, form)
-                    auth.end_loading()
                 }
+                auth.end_loading()
             },
             dataType: 'json'
         });
     },
 
+    signup: function (event) {
+        auth.auth(event, "signup_form")
+    },
+
     change_password: function (event) {
-        event.preventDefault()
-        auth.loading()
-        $('[data-action="change_password_form"]').ajaxSubmit({
-            success: function(data) {
-                event.preventDefault()
-                let form = $('[data-action="change_password_form"]')
-                form.find('input').removeClass('err')
-                form.find('.err').remove()
-                display_warnings.modal_window(data, data.result ? 'ok' : 'error')
-                display_warnings.validator(data.res, form)
-                auth.end_loading()
-            },
-            dataType: 'json'
-        });
+        auth.auth(event, "change_password_form")
+    },
+
+    edit_profile: function (event) {
+        auth.auth(event, "edit_profile_form")
     },
 
     loading: function (){
@@ -81,12 +75,11 @@ const auth = {
         lb.html('')
         lb.text(auth.button_text)
         lb.prop("disabled", false);
-    },
-
-
+    }
 }
 
 $(function (){
     $('[data-action="auth_form"]').on('submit', auth.signup)
     $('[data-action="change_password_form"]').on('submit', auth.change_password)
+    $('[data-action="edit_profile_form"]').on('submit', auth.edit_profile)
 })

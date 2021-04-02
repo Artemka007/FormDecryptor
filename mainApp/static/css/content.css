@@ -60,6 +60,8 @@ p, a, pre, code{
 }
 
 .submenu{
+    display: flex;
+    flex-direction: column;
     background-color: #FFF;
     box-shadow: 7px 7px 8px rgba(50, 50, 50, 0.75);
     position: absolute;

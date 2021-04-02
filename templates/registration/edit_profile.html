@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Редактирование профиля{% endblock %}
+{% block content %}
+    <div class="container dir_row" style="width: 100%; justify-content: center">
+    <div class="container">
+        <form data-action="edit_profile_form" method="POST" class="form">
+
+        <div class="form_title">Редактирование профиля</div>
+        {% csrf_token %}
+            <div class="container dir_row" style="width: 100%; justify-content: center;">
+                <div class="container" style="width: 100%;">
+                    {% for error in form.non_field_errors %}
+                        <span class="error warning_message" style="font-size: 16px; padding: 10px;">{{ error }}</span>
+                    {% endfor %}
+                    <div class="inp_container">
+                        {{ form }}
+                    </div>
+                    <button data-action="auth_button" type="submit" class="bt bt_default" style="font-size: 19px; width: fit-content; margin-left: 0; margin-right: 0;">Изменить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+    <script type="application/javascript">
+    $(function () {
+        $('.inp_container input').prop('required', false)
+    })
+    </script>
+{% endblock %}
