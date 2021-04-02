@@ -45,6 +45,7 @@ $(function() {
                     '       </svg>' +
                     '   </div>'+
                     '</div>').appendTo(ul);
+                ul.scrollTop = ul.scrollHeight
 
                 $('[data-id="' + data.result.pk + '"]').on('click', function() { file_actions.del_file(data.result.pk)} );
 

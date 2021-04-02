@@ -1,13 +1,15 @@
 import os
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 from formDecryption.models import Form, ExcelFile
 
 
 def index(request):
-    return render(request, "formDecryption/index.html")
+    if request.user.is_authenticated:
+        return render(request, "formDecryption/index.html")
+    return HttpResponseRedirect('/account/login/')
 
 def upload_files_controller(request):
     # Получаем текущего пользователя.
@@ -20,7 +22,7 @@ def upload_files_controller(request):
         return JsonResponse({'result': False, 'message': 'Файлов маловато'}, status=400)
 
     if(not u.is_authenticated):
-        # Если пользователь не зареган, то возвращаем ответ со статусом Unauthorized.
+        # Если пользователь не залогинен, то возвращаем ответ со статусом Unauthorized.
         return JsonResponse({'result': False, 'message': 'Вы не авторизованны.'})
 
     # Перебираем массив с одним файлом
@@ -36,7 +38,7 @@ def upload_files_controller(request):
         # Если что-то идет не так возвращаем ответ со статусом BadRequest, и с сообщением ошибки.
         # Это сообщение будет анимированно появляться на экране в специальном контейнере, с помощью jQuery.
         except Exception as e:
-            return JsonResponse({'result': False, 'message': str(e.__str__())}, status=400)
+            return JsonResponse({'result': False, 'message': e.__str__()}, status=400)
         # Ну и если объект сохранился, то возвращаем ответ со статусом Created.
         # Url нужен для взятия изображения с сервера, с последующей передачи его в нейронку.
         # А pk (сокращение от Primary Key) нужен для следующей функции

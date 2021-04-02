@@ -32,10 +32,10 @@ const auth = {
     signup: function (event) {
         event.preventDefault()
         auth.loading()
-        $('[data-action="auth_form"]').ajaxSubmit({
+        $('[data-action="signup_form"]').ajaxSubmit({
             success: function(data) {
                 event.preventDefault()
-                let form = $('[data-action="auth_form"]')
+                let form = $('[data-action="signup_form"]')
                 form.find('input').removeClass('err')
                 form.find('.err').remove()
                 if (data.result) {
@@ -46,6 +46,23 @@ const auth = {
                     display_warnings.validator(data.res, form)
                     auth.end_loading()
                 }
+            },
+            dataType: 'json'
+        });
+    },
+
+    change_password: function (event) {
+        event.preventDefault()
+        auth.loading()
+        $('[data-action="change_password_form"]').ajaxSubmit({
+            success: function(data) {
+                event.preventDefault()
+                let form = $('[data-action="change_password_form"]')
+                form.find('input').removeClass('err')
+                form.find('.err').remove()
+                display_warnings.modal_window(data, data.result ? 'ok' : 'error')
+                display_warnings.validator(data.res, form)
+                auth.end_loading()
             },
             dataType: 'json'
         });
@@ -71,4 +88,5 @@ const auth = {
 
 $(function (){
     $('[data-action="auth_form"]').on('submit', auth.signup)
+    $('[data-action="change_password_form"]').on('submit', auth.change_password)
 })
