@@ -3,13 +3,13 @@ import os
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from formDecryption.models import Form
+from formDecryptor.models import Form
 from mainApp.models import CSVFile
 
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, "formDecryption/index.html")
+        return render(request, "formDecryptor/index.html")
     return HttpResponseRedirect('/account/login/')
 
 def upload_files_controller(request):

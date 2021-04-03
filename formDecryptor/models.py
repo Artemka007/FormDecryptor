@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from formDecryption.manage import compress
+from formDecryptor.manage import compress
 
 
 class Form(models.Model):
@@ -17,13 +17,3 @@ class Form(models.Model):
         n_i = compress(self.form)
         self.form = n_i
         super().save(*args, **kwargs)
-
-class ExcelFile(models.Model):
-    file = models.FileField(upload_to='excelFiles/')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    def get_file_full_url(self):
-        return str(self.file.url)
-
-    def get_file_name(self):
-        return str(self.file.name)

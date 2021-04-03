@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'mainApp',
-    'formDecryption',
+    'formDecryptor',
     'ckeditor',
     'ckeditor_uploader',
 ]
