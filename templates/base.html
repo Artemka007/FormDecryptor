@@ -38,7 +38,7 @@
             {% if request.user.is_authenticated %}
                 <!-- We need to create profile settings page -->
                 <div class="submenu_container">
-                    <a class="nav_item nav_item_submenu">{{ request.user.username }}</a>
+                    <a class="{% if un == 'edit_profile' or un == 'change_password' %}nav_item_active{% else %}nav_item{% endif %} nav_item_submenu">{{ request.user.username }}</a>
                     <div class="submenu">
                         <a class="submenu_item" href="{% url 'edit_profile' %}">Изменить профиль</a>
                         <a class="submenu_item" href="{% url 'change_password' %}">Смена пароля</a>
