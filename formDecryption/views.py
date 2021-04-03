@@ -78,19 +78,19 @@ def download_excel_file(request, pk):
     try:
         excel_file_object = ExcelFile.objects.get(pk=pk)
     except:
-        return HttpResponse({'result': False, 'message': 'Объект с этим id не создан.'})
+        return JsonResponse({'result': False, 'message': 'Объект с этим id не создан.'})
 
     path = excel_file_object.get_file_full_url()
 
     if not request.user.is_authenticated:
-        return HttpResponse({'result': False, 'message': 'Пользователь не авторизован.'})
+        return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})
 
     if not os.path.exists(path):
-        return HttpResponse({'result': False, 'message': 'Файл не найден'})
+        return JsonResponse({'result': False, 'message': 'Файл не найден'})
 
     fp = open(path, "rb")
 
-    response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
+    response = JsonResponse(fp.read(), content_type='application/vnd.ms-excel')
     fp.close()
 
     response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name()).split('/')[1]
@@ -109,4 +109,4 @@ def test_download_excel_file(request):
         fp.close()
         response['Content-Disposition'] = 'attachment; filename=Test.xlsx'
         return response
-    return HttpResponse({'result': False, 'message': 'Файл не найден'})
+    return JsonResponse({'result': False, 'message': 'Файл не найден'})
