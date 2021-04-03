@@ -144,5 +144,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'kopylovartyom007@gmail.com'
 DEFAULT_FROM_EMAIL = 'admin@formdecryptor.com'
-EMAIL_HOST_PASSWORD = '**********'
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 EMAIL_PORT = 587
