@@ -97,17 +97,3 @@ def download_excel_file(request, pk):
     response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name().split('/')[1])
 
     return response
-
-
-
-
-def test_download_excel_file(request):
-    path = './media/excelFiles/Test.xlsx'
-    if os.path.exists(path):
-        fp = open(path, "rb")
-
-        response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
-        fp.close()
-        response['Content-Disposition'] = 'attachment; filename=Test.xlsx'
-        return response
-    return JsonResponse({'result': False, 'message': 'Файл не найден'})
