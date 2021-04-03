@@ -91,10 +91,10 @@ def download_excel_file(request, pk):
 
     fp = open(path, "rb")
 
-    response = JsonResponse(fp.read(), content_type='application/vnd.ms-excel')
+    response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
     fp.close()
 
-    response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name()).split('/')[1]
+    response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name().split('/')[1])
 
     return response
 

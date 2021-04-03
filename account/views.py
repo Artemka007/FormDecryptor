@@ -20,7 +20,8 @@ def register_view(request):
         if form.is_valid():
             form.save()
             data['result'] = True
-            return HttpResponseRedirect('/account/login/')
+            data['redirect_url'] = '/account/login/'
+            return JsonResponse(data)
         else:
             data['result'] = False
             data['message'] = 'Пожалуйста, введите корректные данные и повторите попытку.'

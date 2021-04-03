@@ -14,7 +14,7 @@ class CSVFile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_file_full_url(self):
-        return str(self.file.url)
+        return '.' + str(self.file.url)
 
     def get_file_name(self):
         return str(self.file.name)

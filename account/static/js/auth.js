@@ -33,7 +33,7 @@ const display_warnings = {
 const auth = {
     button_text: '',
 
-    auth: function(event, form_data_action) {
+    auth: function(event, form_data_action, props) {
         event.preventDefault()
         auth.loading()
         $('[data-action="' + form_data_action + '"]').ajaxSubmit({
@@ -48,6 +48,12 @@ const auth = {
                     display_warnings.modal_window(data, 'error')
                     display_warnings.validator(data.res, form)
                 }
+
+
+                if(props && props.is_redirect) {
+                    location.href = data.redirect_url
+                }
+
                 auth.end_loading()
             },
             dataType: 'json'
@@ -55,8 +61,7 @@ const auth = {
     },
 
     signup: function (event) {
-        debugger
-        auth.auth(event, "signup_form")
+        auth.auth(event, "signup_form", { is_redirect: true })
     },
 
     change_password: function (event) {
