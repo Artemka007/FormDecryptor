@@ -159,6 +159,10 @@ const file_actions = {
 
 function modal_window(data, add_class){
     let modal_window = $('[data-action="modal_error_window"]')
+    $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 0, null, function (){
+        $('[data-action="error_message"]').text('')
+        $('[data-action="modal_error_window"]').removeClass(add_class)
+    })
     modal_window.addClass(add_class)
     modal_window.animate({'opacity': 1, 'z-index': '9', 'bottom': '200px'}, 600)
     $('[data-action="error_message"]').text(data.message)

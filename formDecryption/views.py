@@ -3,7 +3,8 @@ import os
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from formDecryption.models import Form, ExcelFile
+from formDecryption.models import Form
+from mainApp.models import CSVFile
 
 
 def index(request):
@@ -76,7 +77,7 @@ def send_file(request, pk):
 def download_excel_file(request, pk):
     # пока комментировать лень, потом посмотрим
     try:
-        excel_file_object = ExcelFile.objects.get(pk=pk)
+        excel_file_object = CSVFile.objects.get(pk=pk)
     except:
         return JsonResponse({'result': False, 'message': 'Объект с этим id не создан.'})
 
