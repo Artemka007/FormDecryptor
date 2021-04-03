@@ -10,7 +10,7 @@ def compress(image):
     # Далее инициализируем байтовую переменную
     im_io = BytesIO()
     # Сохраняем ее в виде байтов в формате .jpeg и немного сжимаем
-    im.save(im_io, 'JPEG', quality=70)
+    im.save(im_io, 'JPEG')
     # Создаем из байтов файл
     new_image = File(im_io, name=image.name)
     # И возвращаем его

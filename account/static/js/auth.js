@@ -51,6 +51,7 @@ const auth = {
     },
 
     signup: function (event) {
+        debugger
         auth.auth(event, "signup_form")
     },
 
@@ -79,7 +80,7 @@ const auth = {
 }
 
 $(function (){
-    $('[data-action="auth_form"]').on('submit', auth.signup)
+    $('[data-action="signup_form"]').on('submit', auth.signup)
     $('[data-action="change_password_form"]').on('submit', auth.change_password)
     $('[data-action="edit_profile_form"]').on('submit', auth.edit_profile)
 })
