@@ -1,8 +1,10 @@
+import json
 import os
 
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
+from formDecryptor.algoritm import create_csv
 from formDecryptor.models import Form
 from mainApp.models import CSVFile
 
@@ -71,25 +73,23 @@ def delete_upload_files_controller(request, pk):
     # И возвращается ответ, что все прошло нормально.
     return JsonResponse({'result': True, 'message': 'Файл успешно удален!'}, status=200)
 
-def send_file(request, pk):
-    pass
+def send_file(request):
+    files_ids = request.GET.get('ids')
+    ids = json.loads(files_ids)
+    pk = create_csv(user=request.user, file_list=ids, count=ids['length'])
+
+    if not request.user.is_authenticated:
+        return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})
+    return JsonResponse({'result': True, 'url': '/decryptor/download/' + str(pk)})
+
 
 def download_excel_file(request, pk):
-    # пока комментировать лень, потом посмотрим
-    try:
-        excel_file_object = CSVFile.objects.get(pk=pk)
-    except:
-        return JsonResponse({'result': False, 'message': 'Объект с этим id не создан.'})
-
-    path = excel_file_object.get_file_full_url()
+    excel_file_object = CSVFile.objects.get(pk=pk)
 
     if not request.user.is_authenticated:
         return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})
 
-    if not os.path.exists(path):
-        return JsonResponse({'result': False, 'message': 'Файл не найден'})
-
-    fp = open(path, "rb")
+    fp = open(excel_file_object.get_file_full_url(), "rb")
     response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
     fp.close()
 

@@ -9,7 +9,7 @@ class Form(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_full_url(self):
-        return str(self.form.url)
+        return '.' + str(self.form.url)
 
     # Переопределяем метод сохранения, добавляя специальную функцию compress.
     # Она находится в файле manage.py в этой дирректории

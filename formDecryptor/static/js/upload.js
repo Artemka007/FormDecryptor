@@ -102,34 +102,21 @@ const file_actions = {
         let files = $('[data-action="send_file"]'), keys = files.map(function() {
             return $(this).attr('data-pk')
         })
-        // пока не готов excel работает тестовый вариант
 
-        if(is_test){
-            if(files.length === 0){
-                modal_window({message: 'Test is done.'}, 'error')
+        $.ajax({
+            url: '/decryptor/send',
+            data: {ids:  JSON.stringify(keys)},
+            traditional: true,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+        }).done(function (res) {
+            if(res.result){
+                location.href = res.url
             }
             else{
-                console.log(files)
-                console.log(keys)
-                modal_window({message: 'Test is done.'}, 'ok')
-                return false
+                modal_window(res.data, 'error')
             }
-        }
-
-        if(files.length === 0){
-            modal_window({message: 'Test is done.'}, 'error')
-        }
-
-        else{
-            // перебираем и отправляем на сервер все id файлов
-            for(let i = 0; i < files.length; i++){
-                $.get({
-                    url: $(this).attr('data-url') + keys[i]
-                }).done(function (res) {
-                    modal_window(res, !res.result ? 'error' : 'ok')
-                })
-            }
-        }
+        })
         return false;
     },
 
@@ -184,6 +171,6 @@ $(function() {
     $('[data-action="upload_photos"]').submit(file_actions.upload)
     $('[data-action="delete_all_photos"]').on('click', file_actions.del_all_files)
     $('[data-action="send_photos"]').on('click', function (event) {
-        file_actions.send_files(event, true)
+        file_actions.send_files(event, false)
     })
 })
