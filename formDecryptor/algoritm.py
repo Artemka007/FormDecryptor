@@ -1,4 +1,4 @@
-from io import StringIO
+from io import StringIO, BytesIO
 
 import cv2
 import csv
@@ -9,6 +9,8 @@ from django.core.files.base import ContentFile
 from formDecryptor.models import Form
 from mainApp.models import CSVFile
 
+from openpyxl import Workbook
+
 bukvi = ["Д","Г","В","Б","А"]
 radW = 15
 radH = 10
@@ -16,6 +18,7 @@ stolb = 2
 klass = 11
 otvet = []
 otvetb = []
+final_answer = []
 
 def get_main_color(img):
     colors = img.getcolors(256)
@@ -267,26 +270,30 @@ def main_work(W, H,stolb, nachalo, img, sto, mini, maxi):
 
 def create_csv(*args, **kwargs):
     a = 0
-    csvfile = StringIO()
-    wr = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+    csvfile = BytesIO()
 
-    with open('./media/documents/cartridge_accounting.csv'):
+    wb = Workbook()
+    wr = wb.active
+
+    with open('./media/documents/cartridge_accounting.xlsx'):
         while a < kwargs['count']:
+            otvet.clear()
             pk = int(kwargs['file_list'][str(a)])
             img = cv2.imread(Form.objects.get(pk=pk).get_full_url())
 
             main_work(radW, radH, 2, 0, img, 1, 75000, 100000)
             main_work(11, 1, 1, 1, img, 0, 50000, 80000)
 
-            wr.writerow(otvet)
+            wr.append(otvet)
             a += 1
 
-        file = ContentFile(csvfile.getvalue().encode('utf-8'))
+        wb.save(csvfile)
+        file = ContentFile(csvfile.getvalue())
 
         final_csv = CSVFile(user=kwargs['user'])
         try:
             final_csv.save()
-            final_csv.file.save('cartridge_accounting.csv', file)
+            final_csv.file.save('cartridge_accounting.xlsx', file)
         except:
             return
 
