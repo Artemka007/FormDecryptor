@@ -31,6 +31,14 @@ def get_main_color(img):
     except TypeError:
         raise Exception("Too many colors in the image")
 
+def create_numbers(*args, **kwargs):
+    a = 1
+    numbers = []
+    while a < kwargs['count']:
+        numbers.append(a)
+        a+=1
+    return numbers
+
 def main_work(W, H,stolb, nachalo, img, sto, mini, maxi):
     vhod = W * stolb
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -274,6 +282,7 @@ def create_csv(*args, **kwargs):
 
     wb = Workbook()
     wr = wb.active
+    wr.append(create_numbers(count=radW*stolb))
 
     with open('./media/documents/cartridge_accounting.xlsx'):
         while a < kwargs['count']:
@@ -284,7 +293,7 @@ def create_csv(*args, **kwargs):
             main_work(radW, radH, 2, 0, img, 1, 75000, 100000)
             main_work(11, 1, 1, 1, img, 0, 50000, 80000)
 
-            wr.append(otvet)
+            wr.append(check_array(otvet))
             a += 1
 
         wb.save(csvfile)
@@ -298,3 +307,31 @@ def create_csv(*args, **kwargs):
             return
 
         return final_csv.pk
+
+def get_digit(str):
+    return int(str.replace(str[-1], ''))
+
+def get_word(str):
+    return str[-1]
+
+def check_array(array):
+    init_tuple = {}
+    result = []
+    for i in array:
+        if 'klass' not in i:
+            init_tuple.setdefault(get_digit(i), get_word(i))
+    list_keys = []
+
+    a = 0
+    while a < radW*stolb:
+        list_keys.append(a)
+        a += 1
+
+    list_keys.sort()
+    for i in list_keys:
+        try:
+            elem = init_tuple[i] if init_tuple[i] else ''
+        except Exception as e:
+            elem = ''
+        result.append(elem)
+    return result
