@@ -90,10 +90,11 @@ def download_excel_file(request, pk):
         return JsonResponse({'result': False, 'message': 'Файл не найден'})
 
     fp = open(path, "rb")
-
     response = HttpResponse(fp.read(), content_type='application/vnd.ms-excel')
     fp.close()
 
-    response['Content-Disposition'] = 'attachment; filename={0}'.format(excel_file_object.get_file_name().split('/')[1])
+    file_name = excel_file_object.get_file_name().split('/')[1]
+
+    response['Content-Disposition'] = 'attachment; filename={0}'.format(file_name)
 
     return response
