@@ -4,13 +4,14 @@ import cv2
 import numpy as np
 from PIL import Image
 from django.core.files.base import ContentFile
+from django.utils.translation import gettext_lazy
 
 from formDecryptor.models import Form
 from mainApp.models import CSVFile
 
 from openpyxl import Workbook
-from openpyxl.styles import Color, Fill, Font, PatternFill, Border, Side
-from openpyxl.cell import Cell
+#from openpyxl.styles import Color, Fill, Font, PatternFill, Border, Side
+#from openpyxl.cell import Cell
 
 bukvi = sorted((str.upper("А Б В Г Д")).split(), key=str.upper, reverse=True)
 otveti = '17Д 18г 16Г 9Д 8д 5Д 14Г 13Г '
@@ -29,15 +30,15 @@ balli = []
 oshibki = []
 
 def create_numbers(*args, **kwargs):
-    a = 1
+    v = 1
     numbers = []
     numbers.append("Имя файла")
     numbers.append("")
     numbers.append('Класс')
     numbers.append('')
-    while a < kwargs['count']+1:
-        numbers.append(a)
-        a += 1
+    while v < kwargs['count']+1:
+        numbers.append(v)
+        v += 1
     numbers.append('Итого')
     return numbers
 
@@ -290,7 +291,11 @@ def main_work(W, H, stolb, nachalo, image, sto, mini, maxi):
             old = (box[0])[0]
             oldY = (box[0])[1]
 
-    if kolv != (W * H) - nachalo and sto == 1:
+    #cv2.imshow("cropped", crop_image)
+    #cv2.waitKey(0)
+    print(kolv)
+    print(sto)
+    if kolv != (W * H) - nachalo:
         raise Exception
 
 
@@ -311,6 +316,7 @@ def create_csv(*args, **kwargs):
             otvetb.clear()
             balli.clear()
             pk = int(kwargs['file_list'][str(a12)])
+            print(pk)
             form = Form.objects.get(pk=pk)
             img = cv2.imread(form.get_full_url())
 
@@ -324,12 +330,11 @@ def create_csv(*args, **kwargs):
             for i in range(1, radW * stolb + 1):
                 if i not in otvet:
                     otvet.append(i)
-                    otvetb.append("")
+                    otvetb.append(" ")
 
             konez = np.c_[otvet, otvetb]
             konez = konez[konez[:, 0].astype(int).argsort()]
 
-            a = None
             b = 0
 
             bold = 0
@@ -345,8 +350,7 @@ def create_csv(*args, **kwargs):
                 else:
                     balli[i - 1] = 0
                     balli.append(0)
-            a = None
-            bold = b
+                bold = b
 
             konez = np.c_[konez, balli]
             vsegoballov = sum(balli)
@@ -357,10 +361,11 @@ def create_csv(*args, **kwargs):
 
             a12 += 1
         except Exception as e:
-            a12 += 1
             pk = int(kwargs['file_list'][str(a12)])
             form = Form.objects.get(pk=pk)
+            print(pk)
             oshibki.append("Диффектный документ: " + str(form.get_file_name()))
+            a12 += 1
 
 
     wb.save(bytes)
@@ -371,11 +376,12 @@ def create_csv(*args, **kwargs):
         final_excel.save()
         final_excel.file.save('Data_of_olympiads.xlsx', file)
     except Exception as e:
-        return [None, [e.__str__()]]
+        return [None, [gettext_lazy(e.__str__())]]
 
     return [final_excel.pk, oshibki]
 
 def check_array(file_name, array, klass, itog):
+    l = 0
     result = [[], []]
 
     result[0].append(file_name)
@@ -390,13 +396,13 @@ def check_array(file_name, array, klass, itog):
     result[1].append(klass)
     result[1].append('')
 
-    for a in array:
-        if a[1] == 'klass':
-            del a
-        answer = a[1]
-        answer_is_true = a[2]
-        result[0].append(answer)
-        result[1].append(answer_is_true)
+    for w in array:
+        answer = w[1]
+        answer_is_true = w[2]
+        if w[1] != 'klass':
+            result[0].append(answer)
+            result[1].append(answer_is_true)
+        l += 1
 
     result[1].append(itog)
 
