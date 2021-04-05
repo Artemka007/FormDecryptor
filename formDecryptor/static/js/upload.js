@@ -118,7 +118,7 @@ const file_actions = {
                     loading.end_loading(true)
                     location.href = res.url
                     display_warnings.modal_window({ message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".' }, 'ok')
-                    file_actions.del_all_files(event)
+                    file_actions.del_all_files()
                 }
                 else{
                     display_warnings.modal_window(res.data, 'error')

@@ -34,6 +34,8 @@ def get_main_color(img):
 def create_numbers(*args, **kwargs):
     a = 1
     numbers = []
+    numbers.append("Имя файла")
+    numbers.append('')
     numbers.append('Класс')
     numbers.append('')
     while a < kwargs['count']+1:
@@ -289,12 +291,13 @@ def create_csv(*args, **kwargs):
     while a < kwargs['count']:
         otvet.clear()
         pk = int(kwargs['file_list'][str(a)])
-        img = cv2.imread(Form.objects.get(pk=pk).get_full_url())
+        form = Form.objects.get(pk=pk)
+        img = cv2.imread(form.get_full_url())
 
         main_work(radW, radH, 2, 0, img, 1, 75000, 100000)
         main_work(11, 1, 1, 1, img, 0, 50000, 80000)
 
-        wr.append(check_array(otvet))
+        wr.append(check_array(form.get_file_name(), otvet))
         a += 1
 
     wb.save(bytes)
@@ -315,7 +318,7 @@ def get_digit(str):
 def get_word(str):
     return str[-1]
 
-def check_array(array):
+def check_array(file_name, array):
     init_tuple = {}
     result = []
     klass = ''
@@ -331,6 +334,8 @@ def check_array(array):
         list_keys.append(a)
         a += 1
 
+    result.append(file_name)
+    result.append('')
     result.append(klass)
     result.append('')
     for i in list_keys:

@@ -11,6 +11,9 @@ class Form(models.Model):
     def get_full_url(self):
         return '.' + str(self.form.url)
 
+    def get_file_name(self):
+        return str(self.form.name).split('/')[1]
+
     # Переопределяем метод сохранения, добавляя специальную функцию compress.
     # Она находится в файле manage.py в этой дирректории
     def save(self, *args, **kwargs):
