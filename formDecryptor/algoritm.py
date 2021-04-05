@@ -35,6 +35,7 @@ def create_numbers(*args, **kwargs):
     a = 1
     numbers = []
     numbers.append('Класс')
+    numbers.append('')
     while a < kwargs['count']+1:
         numbers.append(a)
         a += 1
@@ -294,7 +295,6 @@ def create_csv(*args, **kwargs):
         main_work(11, 1, 1, 1, img, 0, 50000, 80000)
 
         wr.append(check_array(otvet))
-        wr.append([])
         a += 1
 
     wb.save(bytes)
@@ -332,6 +332,7 @@ def check_array(array):
         a += 1
 
     result.append(klass)
+    result.append('')
     for i in list_keys:
         try:
             elem = init_tuple[i] if init_tuple[i] else ''

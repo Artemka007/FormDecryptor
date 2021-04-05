@@ -26,7 +26,7 @@ $(function() {
                 : ''
 
             if(!data.result.result){
-                modal_window(data.result, 'error')
+                display_warnings.modal_window(data.result, 'error')
                 return false
             }
             else {
@@ -50,7 +50,6 @@ $(function() {
 
                 $('[data-id="' + data.result.pk + '"]').on('click', function() { file_actions.del_file(data.result.pk)} );
 
-                display_warnings.modal_window(data.result, 'ok')
                 a += 1
                 return false
             }
@@ -78,6 +77,7 @@ $(function() {
 
 // я решил выделить все действия связанные с файлами в один объект, названный соответственно file_actions = действия_с_файлами
 const file_actions = {
+    errors: [],
     // т. к. почти все функции здесь - callback-и, то в них автоматически передается событие (event)
 
     upload: function (event) {
@@ -116,13 +116,11 @@ const file_actions = {
             if(res.result){
                 loading.end_loading(true)
                 location.href = res.url
-                display_warnings.modal_window({message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".'}, 'ok')
-                for(let i = 0; i < keys.length; i++){
-                    file_actions.del_file(keys[i])
-                }
+                display_warnings.modal_window({ message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".' }, 'ok')
+                file_actions.del_all_files(event)
             }
             else{
-                modal_window(res.data, 'error')
+                display_warnings.modal_window(res.data, 'error')
             }
         })
         return false;
@@ -132,7 +130,6 @@ const file_actions = {
         $.get({
             url: '/decryptor/upload/delete/' + pk
         }).done(function (res) {
-            modal_window(res, res.result ? 'ok' : 'error')
             let el = $('[data-pk="' + pk +'"]')
             el.remove()
         })
@@ -140,39 +137,16 @@ const file_actions = {
     },
 
     del_all_files: function (event) {
-        let els = $('.upload-image-container'), ids = els.map(function(){return $(this).attr('data-pk')})
+        let els = $('.upload-image-container'), ids = els.map(function(){
+            return $(this).attr('data-pk')
+        })
         for(let i = 0; i < els.length; i++){
             let pk = ids[i]
             file_actions.del_file(pk)
-            if(i - 1 === els.length){
-                modal_window({message: 'Все файлы успешно удалены!'}, 'ok')
-            }
         }
+        display_warnings.modal_window({ message: 'Все файлы успешно удалены!' }, 'ok')
         return false;
     }
-}
-
-function modal_window(data, add_class){
-    let modal_window = $('[data-action="modal_error_window"]')
-    $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 0, null, function (){
-        $('[data-action="error_message"]').text('')
-        $('[data-action="modal_error_window"]').removeClass(add_class)
-    })
-    modal_window.addClass(add_class)
-    $('[data-action="error_message"]').text(data.message)
-    modal_window.animate({'opacity': 1, 'z-index': '9', 'bottom': '200px'}, 600)
-    $('[data-action="close_modal_error"]').on('click', function (){
-        $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 0, null, function (){
-            $('[data-action="error_message"]').text('')
-            $('[data-action="modal_error_window"]').removeClass(add_class)
-        })
-    })
-    setTimeout(function () {
-        modal_window.animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 600, null, function (){
-            $('[data-action="error_message"]').text('')
-            $('[data-action="modal_error_window"]').removeClass(add_class)
-        })
-    }, 10000)
 }
 
 $(function() {
