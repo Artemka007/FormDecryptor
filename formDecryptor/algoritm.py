@@ -34,7 +34,8 @@ def get_main_color(img):
 def create_numbers(*args, **kwargs):
     a = 1
     numbers = []
-    while a < kwargs['count']:
+    numbers.append('Класс')
+    while a < kwargs['count']+1:
         numbers.append(a)
         a += 1
     return numbers
@@ -278,7 +279,7 @@ def main_work(W, H,stolb, nachalo, img, sto, mini, maxi):
 
 def create_csv(*args, **kwargs):
     a = 0
-    csvfile = BytesIO()
+    bytes = BytesIO()
 
     wb = Workbook()
     wr = wb.active
@@ -293,10 +294,11 @@ def create_csv(*args, **kwargs):
         main_work(11, 1, 1, 1, img, 0, 50000, 80000)
 
         wr.append(check_array(otvet))
+        wr.append([])
         a += 1
 
-    wb.save(csvfile)
-    file = ContentFile(csvfile.getvalue())
+    wb.save(bytes)
+    file = ContentFile(bytes.getvalue())
 
     final_csv = CSVFile(user=kwargs['user'])
     try:
@@ -316,9 +318,12 @@ def get_word(str):
 def check_array(array):
     init_tuple = {}
     result = []
+    klass = ''
     for i in array:
         if 'klass' not in i:
             init_tuple.setdefault(get_digit(i), get_word(i))
+        else:
+            klass = i[0]
     list_keys = []
 
     a = 1
@@ -326,7 +331,7 @@ def check_array(array):
         list_keys.append(a)
         a += 1
 
-    list_keys.sort()
+    result.append(klass)
     for i in list_keys:
         try:
             elem = init_tuple[i] if init_tuple[i] else ''
