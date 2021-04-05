@@ -1,7 +1,7 @@
 const auth = {
     button_text: '',
 
-    auth: function(event, form_data_action, props) {
+    auth: function(event, form_data_action) {
         event.preventDefault()
         loading.loading()
         $('[data-action="' + form_data_action + '"]').ajaxSubmit({
@@ -17,11 +17,6 @@ const auth = {
                     display_warnings.validator(data.res, form)
                 }
 
-
-                if(props && props.is_redirect) {
-                    location.href = data.redirect_url
-                }
-
                 loading.end_loading()
             },
             dataType: 'json'
@@ -29,7 +24,7 @@ const auth = {
     },
 
     signup: function (event) {
-        auth.auth(event, "signup_form", { is_redirect: true })
+        auth.auth(event, "signup_form")
     },
 
     change_password: function (event) {

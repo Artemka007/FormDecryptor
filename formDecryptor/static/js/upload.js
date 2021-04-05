@@ -100,29 +100,35 @@ const file_actions = {
     },
 
     // отправка файлов на сервер для их последующей обработки осуществляется этой функцией
-    send_files: function (event, is_test) {
+    send_files: function (event) {
         let files = $('[data-action="send_file"]'), keys = files.map(function() {
             return $(this).attr('data-pk')
         })
         loading.loading(true)
 
-        $.ajax({
-            url: '/decryptor/send',
-            data: {ids:  JSON.stringify(keys)},
-            traditional: true,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-        }).done(function (res) {
-            if(res.result){
-                loading.end_loading(true)
-                location.href = res.url
-                display_warnings.modal_window({ message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".' }, 'ok')
-                file_actions.del_all_files(event)
-            }
-            else{
-                display_warnings.modal_window(res.data, 'error')
-            }
-        })
+        if(keys.length > 2){
+            $.ajax({
+                url: '/decryptor/send',
+                data: {ids:  JSON.stringify(keys)},
+                traditional: true,
+                contentType: "application/json",
+                dataType: "json",
+            }).done(function (res) {
+                if(res.result){
+                    loading.end_loading(true)
+                    location.href = res.url
+                    display_warnings.modal_window({ message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".' }, 'ok')
+                    file_actions.del_all_files(event)
+                }
+                else{
+                    display_warnings.modal_window(res.data, 'error')
+                }
+            })
+        }
+        else{
+            display_warnings.modal_window({ message: 'Вы не загрузили неодного файла.' }, 'error')
+            loading.end_loading(true)
+        }
         return false;
     },
 
@@ -133,7 +139,6 @@ const file_actions = {
             let el = $('[data-pk="' + pk +'"]')
             el.remove()
         })
-        return false;
     },
 
     del_all_files: function (event) {
@@ -153,6 +158,6 @@ $(function() {
     $('[data-action="upload_photos"]').submit(file_actions.upload)
     $('[data-action="delete_all_photos"]').on('click', file_actions.del_all_files)
     $('[data-action="send_photos"]').on('click', function (event) {
-        file_actions.send_files(event, false)
+        file_actions.send_files(event)
     })
 })
