@@ -12,6 +12,9 @@ class Form(models.Model):
         return '.' + str(self.form.url)
 
     def get_file_name(self):
+        return str(self.form.name).split('/')[1].split('_')[0] + '.' + str(self.form.name).split('.')[1]
+
+    def get_full_file_name(self):
         return str(self.form.name).split('/')[1]
 
     # Переопределяем метод сохранения, добавляя специальную функцию compress.

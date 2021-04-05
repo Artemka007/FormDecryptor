@@ -80,11 +80,15 @@ def send_file(request):
     if ids['length'] < 2:
         return JsonResponse({'result': False, 'message': 'Слишком мало файлов.'})
 
-    pk = create_csv(user=request.user, file_list=ids, count=ids['length'])
+    result = create_csv(user=request.user, file_list=ids, count=ids['length'])
+
+    if result[0] is None:
+        return JsonResponse({'result': False, 'message':  result[1][0]})
+
 
     if not request.user.is_authenticated:
         return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})
-    return JsonResponse({'result': True, 'url': '/decryptor/download/' + str(pk)})
+    return JsonResponse({'result': True, 'url': '/decryptor/download/' + str(result[0]), 'errors_array':  result[1]})
 
 
 def download_excel_file(request, pk):
