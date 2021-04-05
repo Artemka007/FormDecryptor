@@ -1,7 +1,8 @@
 $(function() {
 
     // Стили будут готовы позже, будет реализованна загрузка и т. д.
-    var ul = $('#upload ul');
+    let ul = $('#upload ul');
+    let a = 1
 
     $('#drop a').click(function() {
         // У инпута стоит display: none, поэтому пользователь нажимает на ссылку, и ссылка активирует нажатие на инпут.
@@ -34,7 +35,7 @@ $(function() {
                     '   <div class="container dir_row" style="width: 100%; margin: 5px 10px;">' +
                     '      <div class="progress_c_bar"></div>' +
                     '      <div style="' + display + ' flex-direction: column; justify-content: center;object-fit: cover; width: 45px; height: 45px; margin: -10px 10px;">' +
-                    '         <img src="' + data.result.url_redirect + '" alt=""/>' +
+                    a +
                     '      </div>'+
                     '      <div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px; border-left: rgba(0,0,0,0.4) solid 1px;">' + data.result.form_name.toString().split('/')[1] + '</div>' +
                     file_size +
@@ -49,7 +50,8 @@ $(function() {
 
                 $('[data-id="' + data.result.pk + '"]').on('click', function() { file_actions.del_file(data.result.pk)} );
 
-                modal_window(data.result, 'ok')
+                display_warnings.modal_window(data.result, 'ok')
+                a += 1
                 return false
             }
         }
@@ -102,6 +104,7 @@ const file_actions = {
         let files = $('[data-action="send_file"]'), keys = files.map(function() {
             return $(this).attr('data-pk')
         })
+        loading.loading(true)
 
         $.ajax({
             url: '/decryptor/send',
@@ -111,7 +114,12 @@ const file_actions = {
             dataType: "json",
         }).done(function (res) {
             if(res.result){
+                loading.end_loading(true)
                 location.href = res.url
+                display_warnings.modal_window({message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".'}, 'ok')
+                for(let i = 0; i < keys.length; i++){
+                    file_actions.del_file(keys[i])
+                }
             }
             else{
                 modal_window(res.data, 'error')
@@ -151,8 +159,8 @@ function modal_window(data, add_class){
         $('[data-action="modal_error_window"]').removeClass(add_class)
     })
     modal_window.addClass(add_class)
-    modal_window.animate({'opacity': 1, 'z-index': '9', 'bottom': '200px'}, 600)
     $('[data-action="error_message"]').text(data.message)
+    modal_window.animate({'opacity': 1, 'z-index': '9', 'bottom': '200px'}, 600)
     $('[data-action="close_modal_error"]').on('click', function (){
         $('[data-action="modal_error_window"]').animate({'opacity': 0, 'z-index': '-2', 'bottom': '-200px'}, 0, null, function (){
             $('[data-action="error_message"]').text('')

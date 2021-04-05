@@ -76,6 +76,10 @@ def delete_upload_files_controller(request, pk):
 def send_file(request):
     files_ids = request.GET.get('ids')
     ids = json.loads(files_ids)
+
+    if ids['length'] < 2:
+        return JsonResponse({'result': False, 'message': 'Слишком мало файлов.'})
+
     pk = create_csv(user=request.user, file_list=ids, count=ids['length'])
 
     if not request.user.is_authenticated:

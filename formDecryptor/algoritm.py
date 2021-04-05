@@ -36,7 +36,7 @@ def create_numbers(*args, **kwargs):
     numbers = []
     while a < kwargs['count']:
         numbers.append(a)
-        a+=1
+        a += 1
     return numbers
 
 def main_work(W, H,stolb, nachalo, img, sto, mini, maxi):
@@ -284,29 +284,28 @@ def create_csv(*args, **kwargs):
     wr = wb.active
     wr.append(create_numbers(count=radW*stolb))
 
-    with open('./media/documents/cartridge_accounting.xlsx'):
-        while a < kwargs['count']:
-            otvet.clear()
-            pk = int(kwargs['file_list'][str(a)])
-            img = cv2.imread(Form.objects.get(pk=pk).get_full_url())
+    while a < kwargs['count']:
+        otvet.clear()
+        pk = int(kwargs['file_list'][str(a)])
+        img = cv2.imread(Form.objects.get(pk=pk).get_full_url())
 
-            main_work(radW, radH, 2, 0, img, 1, 75000, 100000)
-            main_work(11, 1, 1, 1, img, 0, 50000, 80000)
+        main_work(radW, radH, 2, 0, img, 1, 75000, 100000)
+        main_work(11, 1, 1, 1, img, 0, 50000, 80000)
 
-            wr.append(check_array(otvet))
-            a += 1
+        wr.append(check_array(otvet))
+        a += 1
 
-        wb.save(csvfile)
-        file = ContentFile(csvfile.getvalue())
+    wb.save(csvfile)
+    file = ContentFile(csvfile.getvalue())
 
-        final_csv = CSVFile(user=kwargs['user'])
-        try:
-            final_csv.save()
-            final_csv.file.save('cartridge_accounting.xlsx', file)
-        except:
-            return
+    final_csv = CSVFile(user=kwargs['user'])
+    try:
+        final_csv.save()
+        final_csv.file.save('Data_of_olympiads.xlsx', file)
+    except:
+        return
 
-        return final_csv.pk
+    return final_csv.pk
 
 def get_digit(str):
     return int(str.replace(str[-1], ''))
@@ -322,8 +321,8 @@ def check_array(array):
             init_tuple.setdefault(get_digit(i), get_word(i))
     list_keys = []
 
-    a = 0
-    while a < radW*stolb:
+    a = 1
+    while a < radW*stolb+1:
         list_keys.append(a)
         a += 1
 
