@@ -39,7 +39,7 @@ class Algoritm:
     def __index__(self):
         return self.create_excel()
 
-    def create_numbers(self, *args, **kwargs):
+    def create_title(self, *args, **kwargs):
         v = 1
         numbers = []
         numbers.append("Имя файла")
@@ -319,7 +319,7 @@ class Algoritm:
         #    wr.cell(column=1, row=s).fill = PatternFill(bgColor='A9A9A9')
         #    s += 1
 
-        wr.append(self.create_numbers(count=self.radW * self.stolb))
+        wr.append(self.create_title(count=self.radW * self.stolb))
         self.oshibki.clear()
 
         while int(a12) < int(self.count) - 1:
@@ -408,7 +408,7 @@ class Algoritm:
         result[1].append('')
 
         for w in array:
-            if l > 5 + self.radW * self.stolb:
+            if l > 3 + self.radW * self.stolb:
                 break
             answer = w[1]
             answer_is_true = w[2]

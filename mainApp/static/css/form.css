@@ -93,16 +93,20 @@ span.err{
     border-radius: 0 0 3px 3px;
 }
 
-@media (max-width: 650px){
+@media (max-width: 850px){
     .form{
         width: 400px;
         margin-top: 40px;
     }
 
+    .form_title{
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.9);
+    }
+
     .inp{
-        font-size: 14px;
+        font-size: 11px;
         padding: 7px;
-        margin-bottom: 18px;
     }
 }
 

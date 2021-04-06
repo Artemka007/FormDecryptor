@@ -140,7 +140,7 @@ p, a, pre, code{
     padding: 15px;
 }
 
-@media (max-width: 1650px) {
+@media (max-width: 2000px) {
     .nav_panel .nav_auth_item{
         margin-right: 3%;
     }
@@ -151,7 +151,7 @@ p, a, pre, code{
 
 @media (max-width: 850px) {
     .content_container{
-        padding-top: 250px;
+        padding-top: 300px;
     }
 
     .content{
@@ -179,6 +179,7 @@ p, a, pre, code{
     .nav_panel .nav_item, .nav_panel .nav_item_active{
         margin-left: 0;
         width: 100%;
+        box-sizing: border-box;
         text-align: center;
     }
 

@@ -17,10 +17,11 @@ $(function() {
         dataType: 'json',
 
         start: function (e, data) {
-            if(a >= 700) {
+            let val = parseInt($('[data-action="files_count"]').val()) || undefined
+            if(val !== undefined && a >= val) {
                 e.preventDefault()
                 let array = new Array(1)
-                array.push('Больше 700 файлов скачивать нельзя.')
+                array.push(`Больше ${val} файлов скачивать нельзя.`)
                 display_warnings.debug_window(array)
                 return false
             }
@@ -28,13 +29,7 @@ $(function() {
 
         // Как загрузка заканчивается, дабавляется изображение и на него вешаются события
         done: function(e, data) {
-            if(a >= $('[data-action="files_count"]').val() || 700) {
-                e.preventDefault()
-                return false
-            }
-            let display = $(window).width() > 850
-                ? "display: flex;"
-                : "display: none;",
+            let display = "display: flex;",
             file_size = $(window).width() > 850
                 ? '<div style="padding: 5px 10px; border-right: rgba(0,0,0,0.4) solid 1px;">' + formatFileSize(data.result.form_size) + '</div>'
                 : ''
@@ -118,12 +113,24 @@ const file_actions = {
         let files = $('[data-action="send_file"]'), keys = files.map(function() {
             return $(this).attr('data-pk')
         })
-        loading.loading(true)
 
-        if(keys.length > 2){
+        let rows = $('[data-action="rows"]').val(),
+            columns = $('[data-action="columns"]').val(),
+            answers = $('[data-action="answers"]').val(),
+            words = $('[data-action="words"]').val()
+
+
+        if(keys.length > 2 && rows && columns && answers && words && rows > 0 && columns > 0){
+            loading.loading(true)
             $.ajax({
                 url: '/decryptor/send',
-                data: {ids:  JSON.stringify(keys), rows: $('[data-action="rows"]').val(), columns: $('[data-action="columns"]').val(), answers: $('[data-action="answers"]').val(), words: $('[data-action="words"]').val()},
+                data: {
+                    ids:  JSON.stringify(keys),
+                    rows: rows,
+                    columns: columns,
+                    answers: answers,
+                    words: words
+                },
                 traditional: true,
                 contentType: "application/json",
                 dataType: "json",
@@ -140,10 +147,16 @@ const file_actions = {
                 }
             })
         }
-        else{
-            display_warnings.modal_window({ message: 'Вы не загрузили неодного файла.' }, 'error')
-            loading.end_loading(true)
+        else if(!rows || !columns || !answers || !words){
+            display_warnings.modal_window({ message: 'Пожалуйста, введите все требуемые данные и повторите попытку.' }, 'error')
+            display_warnings.debug_window(['Необходимые данные или не введены или не коректны.'])
         }
+
+        else{
+            display_warnings.modal_window({ message: 'Вы не загрузили не одного файла.' }, 'error')
+            display_warnings.debug_window(['Ни одного файла не загружено.'])
+        }
+
         return false;
     },
 
