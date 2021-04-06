@@ -16,8 +16,23 @@ $(function() {
         // Формат отправки
         dataType: 'json',
 
+        start: function (e, data) {
+            if(a >= 700) {
+                e.preventDefault()
+                let array = new Array(1)
+                array.push('Больше 700 файлов скачивать нельзя.')
+                display_warnings.debug_window(array)
+                return false
+            }
+        },
+
         // Как загрузка заканчивается, дабавляется изображение и на него вешаются события
         done: function(e, data) {
+            if(a >= 700) {
+                e.preventDefault()
+
+                return false
+            }
             let display = $(window).width() > 850
                 ? "display: flex;"
                 : "display: none;",
@@ -116,8 +131,9 @@ const file_actions = {
             }).done(function (res) {
                 if(res.result){
                     loading.end_loading(true)
-                    location.href = res.url
                     display_warnings.modal_window({ message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".' }, 'ok')
+                    location.href = res.url
+                    display_warnings.debug_window(res.errors_array)
                     file_actions.del_all_files()
                 }
                 else{

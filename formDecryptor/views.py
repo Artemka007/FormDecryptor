@@ -4,7 +4,7 @@ import os
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from formDecryptor.algoritm import create_csv
+from formDecryptor.algoritm import Algoritm
 from formDecryptor.models import Form
 from mainApp.models import CSVFile
 
@@ -80,21 +80,23 @@ def send_file(request):
     if ids['length'] < 2:
         return JsonResponse({'result': False, 'message': 'Слишком мало файлов.'})
 
-    result = create_csv(user=request.user, file_list=ids, count=ids['length'])
+    #result = create_excel(user=request.user, file_list=ids, count=ids['length'])
+    result = Algoritm(bukvi='а б в г д', otveti='17Д 18г 16Г 9Д 8д 5Д 14Г 13Г ', radW=15, radH=10, stolb=2, file_count=ids['length'], file_list=ids, user=request.user)\
+        .__index__()
+
+    if not request.user.is_authenticated or not request.user == result[0].user:
+        return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})
 
     if result[0] is None:
         return JsonResponse({'result': False, 'message':  result[1][0]})
 
-
-    if not request.user.is_authenticated:
-        return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})
-    return JsonResponse({'result': True, 'url': '/decryptor/download/' + str(result[0]), 'errors_array':  result[1]})
+    return JsonResponse({'result': True, 'url': '/decryptor/download/' + str(result[0].pk), 'errors_array':  result[1]})
 
 
 def download_excel_file(request, pk):
     excel_file_object = CSVFile.objects.get(pk=pk)
 
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated or excel_file_object.user != request.user:
         return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})
 
     fp = open(excel_file_object.get_file_full_url(), "rb")
