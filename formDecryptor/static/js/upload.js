@@ -124,7 +124,7 @@ const file_actions = {
         if(keys.length > 2){
             $.ajax({
                 url: '/decryptor/send',
-                data: {ids:  JSON.stringify(keys)},
+                data: {ids:  JSON.stringify(keys), rows: $('[data-action="rows"]').val(), columns: $('[data-action="columns"]').val(), answers: $('[data-action="answers"]').val(), words: $('[data-action="words"]').val()},
                 traditional: true,
                 contentType: "application/json",
                 dataType: "json",

@@ -6,8 +6,16 @@ Upload and decrypt form
 {% block content %}
 <div class="container dir_row" style="justify-content: center">
 <div class="help_upload_text" style=" width: 80%">
-    <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Загрузите файлы для их последующей обработки</div>
-    <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Для загрузки перетащите файл в нижний контейнер или нажмите на кнопку загрузить и выберите нужный файл.</div>
+    <div class="form_title" style="flex-wrap: wrap; margin-top: 10px;">Введите нужные данные для последующей загрузки файла:</div>
+    <div class="container dir_row" style="width: 100%; justify-content: center">
+        <div class="inp_container" style="width: 100%">
+            <input class="inp inp_default" required placeholder="Кол-во строк..." data-action="rows">
+            <input class="inp inp_default" required placeholder="Кол-во столбцов..." data-action="columns">
+            <input class="inp inp_default" required placeholder="Правильные ответы от 1 до n в порядке возрастания через пробел, например 1А 2Б..." data-action="answers">
+            <input class="inp inp_default" required placeholder="Буквы ответов в алфавитном порядке через пробел, например А Б..." data-action="rows">
+        </div>
+    </div>
+    <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Для загрузки перетащите файл в средний контейнер или нажмите на кнопку загрузить и выберите нужный файл.</div>
     <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Для удаления загруженного файла нажмите на крестик справа от описания файла.</div>
 </div>
 </div>

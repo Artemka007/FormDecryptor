@@ -3,6 +3,7 @@ import os
 
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 
 from formDecryptor.algoritm import Algoritm
 from formDecryptor.models import Form
@@ -41,7 +42,7 @@ def upload_files_controller(request):
         # Если что-то идет не так возвращаем ответ со статусом BadRequest, и с сообщением ошибки.
         # Это сообщение будет анимированно появляться на экране в специальном контейнере, с помощью jQuery.
         except Exception as e:
-            return JsonResponse({'result': False, 'message': e.__str__()}, status=400)
+            return JsonResponse({'result': False, 'message': _(e.__str__())}, status=400)
         # Ну и если объект сохранился, то возвращаем ответ со статусом Created.
         # Url нужен для взятия изображения с сервера, с последующей передачи его в нейронку.
         # А pk (сокращение от Primary Key) нужен для следующей функции
@@ -56,33 +57,42 @@ def upload_files_controller(request):
         }, status=201)
 
 def delete_upload_files_controller(request, pk):
-    # pk ставится с помощью jquery, как аттрибут data-id к изображению крестика, при нажатии активируется функция, которая отправляет запрос
-    # на урл, к которому прикоеплена эта функция, беря из аттрибута data-id соответственное значение и вставляя его в урл.
+    # pk ставится с помощью jquery, как аттрибут data-id к изображению крестика,
+    # при нажатии активируется функция, которая отправляет запрос
+    # на урл, к которому прикоеплена эта функция,
+    # беря из аттрибута data-id соответственное значение и вставляя его в урл.
     # Далее ищется по этому ключу модель бланка.
     try:
         formModelObject = Form.objects.get(pk=pk)
     except Exception as e:
-        return JsonResponse({'result': False, 'message': e.__str__()}, status=400)
+        return JsonResponse({'result': False, 'message': _(e.__str__())}, status=400)
     # Дальнейшие действия были описаны выше.
     if not formModelObject:
         return JsonResponse({'result': False}, status=400)
     try:
         formModelObject.delete()
     except Exception as e:
-        return JsonResponse({'result': False, 'message': e.__str__()}, status=400)
+        return JsonResponse({'result': False, 'message': _(e.__str__())}, status=400)
     # И возвращается ответ, что все прошло нормально.
     return JsonResponse({'result': True, 'message': 'Файл успешно удален!'}, status=200)
 
 def send_file(request):
     files_ids = request.GET.get('ids')
+
+    words = request.GET.get('words') or 'а б в г д'
+    answers = request.GET.get('answers') or '17Д 18г 16Г 9Д 8д 5Д 14Г 13Г '
+    rows = int(request.GET.get('rows')) or 10
+    columns = int(request.GET.get('columns')) or 15
+
+
     ids = json.loads(files_ids)
 
     if ids['length'] < 2:
         return JsonResponse({'result': False, 'message': 'Слишком мало файлов.'})
 
     #result = create_excel(user=request.user, file_list=ids, count=ids['length'])
-    result = Algoritm(bukvi='а б в г д', otveti='17Д 18г 16Г 9Д 8д 5Д 14Г 13Г ', radW=15, radH=10, stolb=2, file_count=ids['length'], file_list=ids, user=request.user)\
-        .__index__()
+    result = Algoritm(bukvi=words, otveti=answers, radW=columns, radH=rows,
+                      file_count=ids['length'], file_list=ids, user=request.user).__index__()
 
     if not request.user.is_authenticated or not request.user == result[0].user:
         return JsonResponse({'result': False, 'message': 'Пользователь не авторизован.'})

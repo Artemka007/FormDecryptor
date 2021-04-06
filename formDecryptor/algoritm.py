@@ -14,15 +14,17 @@ from openpyxl import Workbook
 #from openpyxl.cell import Cell
 
 class Algoritm:
-    def __init__(self, bukvi, otveti, radW, radH, stolb, file_count, file_list, user):
+    def __init__(self, bukvi, otveti, radW, radH, file_count, file_list, user):
         self.bukvi = sorted((str.upper(bukvi)).split(), key=str.upper, reverse=True)
         self.otveti = otveti.split(" ")
+
         for i in range(len(self.otveti)):
             self.otveti[i] = str.upper(self.otveti[i])
 
         self.radW = radW
         self.radH = radH
-        self.stolb = stolb
+        self.stolb = int(radH/len(self.bukvi))
+
         self.klass = 11
 
         self.otvet = []
