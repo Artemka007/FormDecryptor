@@ -9,10 +9,13 @@ Upload and decrypt form
     <div class="form_title" style="flex-wrap: wrap; margin-top: 10px;">Введите нужные данные для последующей загрузки файла:</div>
     <div class="container dir_row" style="width: 100%; justify-content: center">
         <div class="inp_container" style="width: 100%">
-            <input class="inp inp_default" required placeholder="Кол-во строк..." data-action="rows">
-            <input class="inp inp_default" required placeholder="Кол-во столбцов..." data-action="columns">
-            <input class="inp inp_default" required placeholder="Правильные ответы от 1 до n в порядке возрастания через пробел, например 1А 2Б..." data-action="answers">
-            <input class="inp inp_default" required placeholder="Буквы ответов в алфавитном порядке через пробел, например А Б..." data-action="rows">
+            <div class="container dir_row" style="width: 100%">
+                <input class="inp inp_default" style="width: 33.3%; margin: 0" min="1" type="number" placeholder="Кол-во строк..." data-action="rows">
+                <input class="inp inp_default" style="width: 33.3%; margin: 0" min="1" type="number" placeholder="Кол-во столбцов..." data-action="columns">
+                <input class="inp inp_default" style="width: 33.3%; margin: 0" min="1" type="number" placeholder="Кол-во файлов (по умолчанию 700)..." data-action="files_count">
+            </div>
+            <input class="inp inp_default" type="text" placeholder="Правильные ответы от 1 до n в порядке возрастания через пробел, например 1А 2Б..." data-action="answers">
+            <input class="inp inp_default" type="text" placeholder="Буквы ответов в алфавитном порядке через пробел, например А Б..." data-action="rows">
         </div>
     </div>
     <div class="container dir_row" style="flex-wrap: wrap; margin-top: 10px; font-size: 17px;">Для загрузки перетащите файл в средний контейнер или нажмите на кнопку загрузить и выберите нужный файл.</div>

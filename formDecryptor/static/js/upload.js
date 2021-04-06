@@ -28,9 +28,8 @@ $(function() {
 
         // Как загрузка заканчивается, дабавляется изображение и на него вешаются события
         done: function(e, data) {
-            if(a >= 700) {
+            if(a >= $('[data-action="files_count"]').val() || 700) {
                 e.preventDefault()
-
                 return false
             }
             let display = $(window).width() > 850

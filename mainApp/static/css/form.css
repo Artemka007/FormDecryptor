@@ -75,6 +75,24 @@ span.err{
     border: rgb(68, 112, 236) solid 2px;
 }
 
+.inp_default[type=number]::-webkit-inner-spin-button,
+.inp_default[type=number]::-webkit-outer-spin-button
+{
+    padding: 0;
+    cursor: pointer;
+    opacity: 1;
+    background-color: white;
+    border: #424242 solid 1px;
+}
+
+.inp_default[type=number]::-webkit-inner-spin-button:hover{
+    border-radius: 3px 3px 0 0;
+}
+
+.inp_default[type=number]::-webkit-outer-spin-button:hover{
+    border-radius: 0 0 3px 3px;
+}
+
 @media (max-width: 650px){
     .form{
         width: 400px;
