@@ -120,7 +120,7 @@ const file_actions = {
             words = $('[data-action="words"]').val()
 
 
-        if(keys.length > 2 && rows && columns && answers && words && rows > 0 && columns > 0){
+        if(keys.length > 2 && rows && columns && answers && words && parseInt(rows) > 0 && parseInt(columns) > 0){
             loading.loading(true)
             $.ajax({
                 url: '/decryptor/send',
@@ -147,7 +147,7 @@ const file_actions = {
                 }
             })
         }
-        else if(!rows || !columns || !answers || !words){
+        else if(!rows || !columns || !answers || !words || parseInt(rows) <= 0 || parseInt(columns) <= 0){
             display_warnings.modal_window({ message: 'Пожалуйста, введите все требуемые данные и повторите попытку.' }, 'error')
             display_warnings.debug_window(['Необходимые данные или не введены или не коректны.'])
         }
