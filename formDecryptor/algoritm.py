@@ -305,7 +305,7 @@ class Algoritm:
         if kolv != (W * H) - nachalo:
             raise Exception
 
-    def create_excel(self, *args, **kwargs):
+    def create_excel(self):
         a12 = 0
         bytes = BytesIO()
 
