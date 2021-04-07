@@ -39,7 +39,7 @@ class Algoritm:
     def __index__(self):
         return self.create_excel()
 
-    def create_title(self, *args, **kwargs):
+    def create_header(self, *args, **kwargs):
         v = 1
         numbers = []
         numbers.append("Имя файла")
@@ -309,15 +309,21 @@ class Algoritm:
         cell_counter = 2
         bytes = BytesIO()
 
+        # создаем рабочую книгу
         wb = Workbook()
+        # делаем ее активной для записи данных
         wr = wb.active
 
         s = 1
 
-        title = self.create_title(count=self.radW * self.stolb)
+        # сдесь мы полностью создаем заголовок таблицы
+        title = self.create_header(count=self.radW * self.stolb)
 
         # TODO: При добавлении столбцов счетчик надо увеличить
+        # потому, что это сколько столбцов кроме ответов есть
         add_cols = 4
+
+        # сдесь происходит стилизация и записывание заголовка в таблицу
         while s <= self.radW * self.stolb + add_cols:
             cell = wr.cell(column=s, row=1, value=title[s-1])
             cell.font = Font(bold=True, size=10)
@@ -339,6 +345,8 @@ class Algoritm:
             cell.border = Border(top=Side(style='thin'), bottom=Side(style='thin'), right=right, left=left)
             s += 1
 
+
+        # тут мы ставим ширину соответствующим столбцам
         cellA = wr.column_dimensions['A']
         cellB = wr.column_dimensions['B']
         cellC = wr.column_dimensions['C']
@@ -349,9 +357,10 @@ class Algoritm:
         cellB.alignment = Alignment(horizontal='center')
         cellC.alignment = Alignment(horizontal='center')
 
-        self.oshibki.clear()
-
+        self.oshibki.clear() # очищаем массив с ошибками, чтобы не осталось ошибок с прошлой загрузки
+        # тут происходит самое важное, обработка файлов и запись в таблицу ответов, классов и т. д.
         while int(counter) < int(self.count):
+            # итак, пытаемся осуществить эту всю операцию
             try:
                 self.otvet.clear()
                 self.otvetb.clear()
@@ -399,9 +408,11 @@ class Algoritm:
                 konez = np.c_[konez, self.balli]
                 vsegoballov = sum(self.balli)
 
+                # преобразовываем массив в другой массив, с двумя массивами,
+                # в первом буквы ответов, во втором все остальное.
                 check_array = self.check_array(form.get_file_name(), konez, klass1, vsegoballov)
-
                 c = 0
+                # перебираем эти массивы и добавляем элементы в соответствующие строки и столбцы, также добавляем стилей
                 for q in check_array:
                     t = 0
                     while t < len(q):
@@ -426,6 +437,7 @@ class Algoritm:
                 cell_counter += 2
 
             except Exception as e:
+                # в случае ошибки добавляем ее в массив, потом мы его вернем в ответе
                 pk = int(self.file_list[str(counter)])
                 form = Form.objects.get(pk=pk)
                 print(pk)
