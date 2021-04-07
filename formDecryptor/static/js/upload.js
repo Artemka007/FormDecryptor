@@ -16,17 +16,6 @@ $(function() {
         // Формат отправки
         dataType: 'json',
 
-        start: function (e, data) {
-            let val = parseInt($('[data-action="files_count"]').val()) || undefined
-            if(val !== undefined && a >= val) {
-                e.preventDefault()
-                let array = new Array(1)
-                array.push(`Больше ${val} файлов скачивать нельзя.`)
-                display_warnings.debug_window(array)
-                return false
-            }
-        },
-
         // Как загрузка заканчивается, дабавляется изображение и на него вешаются события
         done: function(e, data) {
             let display = "display: flex;",
@@ -58,7 +47,6 @@ $(function() {
                 ul.scrollTop = ul.scrollHeight
 
                 $('[data-id="' + data.result.pk + '"]').on('click', function() { file_actions.del_file(data.result.pk)} );
-
                 a += 1
                 return false
             }
@@ -115,10 +103,11 @@ const file_actions = {
             rows = $('[data-action="rows"]').val(),
             columns = $('[data-action="columns"]').val(),
             answers = $('[data-action="answers"]').val(),
-            words = $('[data-action="words"]').val()
+            words = $('[data-action="words"]').val(),
+            val = parseInt($('[data-action="files_count"]').val()) || undefined
 
 
-        if(keys.length > 2 && rows && columns && answers && words && parseInt(rows) > 0 && parseInt(columns) > 0){
+        if(keys.length > 2 && rows && columns && answers && words && parseInt(rows) > 0 && parseInt(columns) > 0 && (!val || keys.length <= val)){
             loading.loading(true)
             $.ajax({
                 url: '/decryptor/send',
@@ -134,17 +123,27 @@ const file_actions = {
                 dataType: "json",
             }).done(function (res) {
                 if(res.result){
+                    location.href = res.url
                     loading.end_loading(true)
                     display_warnings.modal_window({ message: 'Все прошло успешно! Файл скачался в дирректорию "Загрузки".' }, 'ok')
-                    location.href = res.url
                     display_warnings.debug_window(res.errors_array)
-                    file_actions.del_all_files()
+                    setTimeout(function (){
+                        file_actions.del_all_files()
+                    }, 5000)
                 }
                 else{
                     display_warnings.modal_window(res.data, 'error')
                 }
             })
         }
+
+        else if(val && keys.length > val) {
+            e.preventDefault()
+            let array = new Array(1)
+            array.push(`Больше ${val} файлов скачивать нельзя.`)
+            display_warnings.debug_window(array)
+        }
+
         else if(!rows || !columns || !answers || !words || parseInt(rows) <= 0 || parseInt(columns) <= 0){
             display_warnings.modal_window({ message: 'Пожалуйста, введите корректно все требуемые данные и повторите попытку.' }, 'error')
             display_warnings.debug_window(['Необходимые данные или не введены или не коректны.'])
