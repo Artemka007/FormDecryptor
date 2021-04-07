@@ -23,7 +23,7 @@ class Algoritm:
 
         self.radW = radW
         self.radH = radH
-        self.stolb = int(radH/len(self.bukvi))
+        self.stolb = int(radH / len(self.bukvi))
 
         self.klass = 11
 
@@ -240,7 +240,7 @@ class Algoritm:
                 rect = cv2.minAreaRect(c)
                 box = cv2.boxPoints(rect)
                 box = np.int0(box)
-                cv2.drawContours(crop_image, [box], -1, (255, 0, 0), 1)
+                #cv2.drawContours(crop_image, [box], -1, (255, 0, 0), 1)
                 X1 = []
                 Y1 = []
                 for l in range(4):
@@ -342,9 +342,9 @@ class Algoritm:
         cellA = wr.column_dimensions['A']
         cellB = wr.column_dimensions['B']
         cellC = wr.column_dimensions['C']
-        cellA.width = 30
+        cellA.width = 20
         cellB.width = 10
-        cellC.width = 40
+        cellC.width = 50
         cellA.alignment = Alignment(horizontal='center')
         cellB.alignment = Alignment(horizontal='center')
         cellC.alignment = Alignment(horizontal='center')
@@ -361,7 +361,10 @@ class Algoritm:
                 form = Form.objects.get(pk=pk)
                 img = cv2.imread(form.get_full_url())
 
+                # вызов функции для распознавания ответов
                 self.main_work(self.radW, self.radH, self.stolb, 0, img, 1, 75000, 100000)
+
+                # вызов функции для распознавания классов
                 self.main_work(self.klass, 1, 1, 1, img, 0, 50000, 80000)
 
                 klass1 = self.otvet[-1]

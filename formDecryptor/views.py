@@ -1,5 +1,4 @@
 import json
-import os
 
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -79,18 +78,16 @@ def delete_upload_files_controller(request, pk):
 def send_file(request):
     files_ids = request.GET.get('ids')
 
-    words = request.GET.get('words') or 'а б в г д'
-    answers = request.GET.get('answers') or '17Д 18г 16Г 9Д 8д 5Д 14Г 13Г '
-    rows = int(request.GET.get('rows')) or 10
-    columns = int(request.GET.get('columns')) or 15
-
+    words = request.GET.get('words')
+    answers = request.GET.get('answers')
+    rows = int(request.GET.get('rows'))
+    columns = int(request.GET.get('columns'))
 
     ids = json.loads(files_ids)
 
     if ids['length'] < 2:
         return JsonResponse({'result': False, 'message': 'Слишком мало файлов.'})
 
-    #result = create_excel(user=request.user, file_list=ids, count=ids['length'])
     result = Algoritm(bukvi=words, otveti=answers, radW=columns, radH=rows,
                       file_count=ids['length'], file_list=ids, user=request.user).__index__()
 

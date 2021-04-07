@@ -47,7 +47,7 @@
     height: 6px;
 }
 
-.upload-image-container{
+.upload-image-container, .debug_container{
     display: flex;
     flex-direction: row;
     height: 50px;

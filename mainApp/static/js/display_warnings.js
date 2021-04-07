@@ -21,6 +21,7 @@ const display_warnings = {
                 $('[data-action="error_message"]').text('')
                 $('[data-action="modal_error_window"]').removeClass(add_class)
             })
+            return false
         })
         setTimeout(function () {
             modal_window.removeClass('error')
@@ -28,14 +29,16 @@ const display_warnings = {
                 $('[data-action="error_message"]').text('')
                 $('[data-action="modal_error_window"]').removeClass(add_class)
             })
+            return false
         }, 10000)
+        return false
     },
 
     debug_window: function (array){
         let debug_window = $('[data-action="debug_window"]')
         for(let a = 0; a < array.length; a++){
             debug_window.append('' +
-                '<div class="upload-image-container">' +
+                '<div class="debug_container">' +
                 '   <div class="container dir_row" style="width: 100%; margin: 5px 10px;">' +
                 '       <div style="padding: 5px 10px; border-left: rgba(0,0,0,0.4) solid 1px;">' +
                 '           <div style="color: #ee2f2f;">' +

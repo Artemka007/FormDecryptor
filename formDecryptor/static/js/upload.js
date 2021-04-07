@@ -150,7 +150,7 @@ const file_actions = {
         }
 
         else{
-            display_warnings.modal_window({ message: 'Вы не загрузили не одного файла.' }, 'error')
+            display_warnings.modal_window({ message: 'Вы не загрузили ни одного файла.' }, 'error')
             display_warnings.debug_window(['Ни одного файла не загружено.'])
         }
 
