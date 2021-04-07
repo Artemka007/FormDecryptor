@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 from PIL import Image
 from django.core.files.base import ContentFile
-from django.utils.translation import gettext_lazy
+from django.utils.translation import gettext_lazy as _
 
 from formDecryptor.models import Form
 from mainApp.models import CSVFile
@@ -44,6 +44,7 @@ class Algoritm:
         numbers = []
         numbers.append("Имя файла")
         numbers.append('Класс')
+        numbers.append(f'Answers 1-{self.radW * self.stolb}')
         while v < kwargs['count'] + 1:
             numbers.append(v)
             v += 1
@@ -312,19 +313,21 @@ class Algoritm:
         wr = wb.active
 
         s = 1
-        d = 3
+
         title = self.create_title(count=self.radW * self.stolb)
 
-        while s <= self.radW * self.stolb + 3:
+        while s <= self.radW * self.stolb + 4:
             cell = wr.cell(column=s, row=1, value=title[s-1])
             cell.font = Font(bold=True, size=10)
+            bgColor = 'A9A9A9' if s != 3 else 'FFFF00'
             cell.fill = PatternFill(
-                bgColor='A9A9A9',
+                bgColor=bgColor,
                 fgColor='000000',
-                start_color='A9A9A9',
-                end_color='A9A9A9',
+                start_color=bgColor,
+                end_color=bgColor,
                 fill_type='solid'
             )
+
             cell.value = title[s-1]
             cell.alignment = Alignment(horizontal='center')
 
@@ -334,12 +337,15 @@ class Algoritm:
             cell.border = Border(top=Side(style='thin'), bottom=Side(style='thin'), right=right, left=left)
             s += 1
 
-        cell1 = wr.column_dimensions['A']
-        cell2 = wr.column_dimensions['B']
-        cell1.width = 30
-        cell2.width = 20
-        cell1.alignment = Alignment(horizontal='center')
-        cell2.alignment = Alignment(horizontal='center')
+        cellA = wr.column_dimensions['A']
+        cellB = wr.column_dimensions['B']
+        cellC = wr.column_dimensions['C']
+        cellA.width = 30
+        cellB.width = 10
+        cellC.width = 40
+        cellA.alignment = Alignment(horizontal='center')
+        cellB.alignment = Alignment(horizontal='center')
+        cellC.alignment = Alignment(horizontal='center')
 
         self.oshibki.clear()
 
@@ -402,8 +408,8 @@ class Algoritm:
 
                         cell.value = q[t]
 
-                        if t <= 2 and t < (2 + self.radW * self.stolb):
-                            wr.column_dimensions[str(cell.column_letter)].width = 12
+                        if 2 < t < (3 + self.radW * self.stolb):
+                            wr.column_dimensions[str(cell.column_letter)].width = 4
 
                         t += 1
                     c += 1
@@ -426,29 +432,45 @@ class Algoritm:
             final_excel.save()
             final_excel.file.save('Data_of_olympiads.xlsx', file)
         except Exception as e:
-            return [None, [gettext_lazy(e.__str__())]]
+            return [None, [_(e.__str__())]]
 
         return [final_excel, self.oshibki]
 
     def check_array(self, file_name, array, klass, itog):
-        l = 1
+        c = 0
+        last_answer = None
         result = [[], []]
 
-        result[0].append(file_name)
-        result[0].append(klass)
+        result[0].append('')
+        result[0].append('')
+        result[0].append('')
 
-        result[1].append('')
-        result[1].append('')
+        result[1].append(file_name)
+        result[1].append(klass)
 
         for w in array:
-            if l > self.radW * self.stolb:
-                break
-            answer = w[1]
-            answer_is_true = w[2]
-            if w[1] != 'klass':
-                result[0].append(answer)
-                result[1].append(answer_is_true)
-            l += 1
+            if last_answer and last_answer == w[0]:
+                last_answer = w[0]
+                del result[1][c-1]
+                result[1].append(0)
+
+            else:
+                last_answer = w[0]
+                answer = w[1]
+                answer_is_true = w[2]
+                if w[1] != 'klass' and answer != 'None' and answer_is_true != 'None':
+                    result[0].append(str(answer))
+                    result[1].append(answer_is_true)
+
+                c += 1
+        v = 2
+        result_str = ''
+
+        while v < len(result[1]):
+            result_str += str(result[1][v])
+            v += 1
+
+        result[1].insert(2, result_str)
 
         result[0].append('')
         result[1].append(itog)
