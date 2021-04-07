@@ -10,8 +10,8 @@ from formDecryptor.models import Form
 from mainApp.models import CSVFile
 
 from openpyxl import Workbook
-#from openpyxl.styles import Color, Fill, Font, PatternFill, Border, Side
-#from openpyxl.cell import Cell
+from openpyxl.styles import Color, Fill, Font, PatternFill, Border, Side, Alignment
+from openpyxl.cell import Cell
 
 class Algoritm:
     def __init__(self, bukvi, otveti, radW, radH, file_count, file_list, user):
@@ -43,9 +43,7 @@ class Algoritm:
         v = 1
         numbers = []
         numbers.append("Имя файла")
-        numbers.append("")
         numbers.append('Класс')
-        numbers.append('')
         while v < kwargs['count'] + 1:
             numbers.append(v)
             v += 1
@@ -306,28 +304,51 @@ class Algoritm:
             raise Exception
 
     def create_excel(self):
-        a12 = 0
+        counter = 0
+        cell_counter = 2
         bytes = BytesIO()
 
         wb = Workbook()
         wr = wb.active
 
         s = 1
+        d = 3
+        title = self.create_title(count=self.radW * self.stolb)
 
-        # while s <= radW*stolb + 6:
-        #    wr.cell(column=1, row=s).font = Font(bold=True, size=10)
-        #    wr.cell(column=1, row=s).fill = PatternFill(bgColor='A9A9A9')
-        #    s += 1
+        while s <= self.radW * self.stolb + 3:
+            cell = wr.cell(column=s, row=1, value=title[s-1])
+            cell.font = Font(bold=True, size=10)
+            cell.fill = PatternFill(
+                bgColor='A9A9A9',
+                fgColor='000000',
+                start_color='A9A9A9',
+                end_color='A9A9A9',
+                fill_type='solid'
+            )
+            cell.value = title[s-1]
+            cell.alignment = Alignment(horizontal='center')
 
-        wr.append(self.create_title(count=self.radW * self.stolb))
+            right = Side(style='thin')
+            left = Side(style='thin')
+
+            cell.border = Border(top=Side(style='thin'), bottom=Side(style='thin'), right=right, left=left)
+            s += 1
+
+        cell1 = wr.column_dimensions['A']
+        cell2 = wr.column_dimensions['B']
+        cell1.width = 30
+        cell2.width = 20
+        cell1.alignment = Alignment(horizontal='center')
+        cell2.alignment = Alignment(horizontal='center')
+
         self.oshibki.clear()
 
-        while int(a12) < int(self.count) - 1:
+        while int(counter) < int(self.count) - 1:
             try:
                 self.otvet.clear()
                 self.otvetb.clear()
                 self.balli.clear()
-                pk = int(self.file_list[str(a12)])
+                pk = int(self.file_list[str(counter)])
                 print(pk)
                 form = Form.objects.get(pk=pk)
                 img = cv2.imread(form.get_full_url())
@@ -367,17 +388,31 @@ class Algoritm:
                 konez = np.c_[konez, self.balli]
                 vsegoballov = sum(self.balli)
 
-                for q in self.check_array(form.get_file_name(), konez, klass1, vsegoballov):
-                    wr.append(q)
-                wr.append([])
+                check_array = self.check_array(form.get_file_name(), konez, klass1, vsegoballov)
 
-                a12 += 1
+                c = 0
+                for q in check_array:
+                    t = 0
+                    while t < len(q):
+                        row = cell_counter + c
+                        cell = wr.cell(row=row, column=t + 1)
+                        cell.alignment = Alignment(horizontal='center')
+                        cell.border = Border(top=Side(style='thin'), bottom=Side(style='thin'),
+                                             right=Side(style='thin'), left=Side(style='thin'))
+
+                        cell.value = q[t]
+                        t += 1
+                    c += 1
+
+                counter += 1
+                cell_counter += 2
+
             except Exception as e:
-                pk = int(self.file_list[str(a12)])
+                pk = int(self.file_list[str(counter)])
                 form = Form.objects.get(pk=pk)
                 print(pk)
-                self.oshibki.append("Диффектный документ: " + str(form.get_file_name()))
-                a12 += 1
+                self.oshibki.append("Дефектный документ: " + str(form.get_file_name()))
+                counter += 1
 
         wb.save(bytes)
         file = ContentFile(bytes.getvalue())
@@ -396,19 +431,13 @@ class Algoritm:
         result = [[], []]
 
         result[0].append(file_name)
-        result[0].append('')
-
         result[0].append(klass)
-        result[0].append('')
-
-        result[1].append('')
-        result[1].append('')
 
         result[1].append('')
         result[1].append('')
 
         for w in array:
-            if l > 3 + self.radW * self.stolb:
+            if l > self.radW * self.stolb:
                 break
             answer = w[1]
             answer_is_true = w[2]
