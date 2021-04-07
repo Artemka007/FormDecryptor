@@ -21,6 +21,7 @@ def register_view(request):
             form.save()
             data['result'] = True
             data['redirect_url'] = '/account/login/'
+            data['message'] = '<div>Вы успешно зарегистрированы! Для входа в систему перейдите по <a class="form_link" href="/account/login/"> этой ссылке</a>.</div>'
             return JsonResponse(data)
         else:
             data['result'] = False

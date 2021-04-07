@@ -10,6 +10,7 @@ const auth = {
                 form.find('input').removeClass('err')
                 form.find('.err').remove()
                 if(data.result){
+                    debugger
                     display_warnings.modal_window(data, 'ok')
                 }
                 else{
