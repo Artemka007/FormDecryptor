@@ -316,7 +316,9 @@ class Algoritm:
 
         title = self.create_title(count=self.radW * self.stolb)
 
-        while s <= self.radW * self.stolb + 4:
+        # TODO: При добавлении столбцов счетчик надо увеличить
+        add_cols = 4
+        while s <= self.radW * self.stolb + add_cols:
             cell = wr.cell(column=s, row=1, value=title[s-1])
             cell.font = Font(bold=True, size=10)
             bgColor = 'A9A9A9' if s != 3 else 'FFFF00'
@@ -408,7 +410,10 @@ class Algoritm:
 
                         cell.value = q[t]
 
-                        if 2 < t < (3 + self.radW * self.stolb):
+                        # TODO: При добавлении столбцов счетчик надо увеличить
+                        f = 2
+
+                        if f < t < (3 + self.radW * self.stolb):
                             wr.column_dimensions[str(cell.column_letter)].width = 4
 
                         t += 1
@@ -463,6 +468,8 @@ class Algoritm:
                     result[1].append(answer_is_true)
 
                 c += 1
+
+        # TODO: При добавлении столбцов счетчик надо увеличить
         v = 2
         result_str = ''
 
