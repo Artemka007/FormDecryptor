@@ -343,7 +343,7 @@ class Algoritm:
 
         self.oshibki.clear()
 
-        while int(counter) < int(self.count) - 1:
+        while int(counter) < int(self.count):
             try:
                 self.otvet.clear()
                 self.otvetb.clear()
@@ -401,6 +401,10 @@ class Algoritm:
                                              right=Side(style='thin'), left=Side(style='thin'))
 
                         cell.value = q[t]
+
+                        if t <= 2 and t < (2 + self.radW * self.stolb):
+                            wr.column_dimensions[str(cell.column_letter)].width = 12
+
                         t += 1
                     c += 1
 
@@ -446,6 +450,7 @@ class Algoritm:
                 result[1].append(answer_is_true)
             l += 1
 
+        result[0].append('')
         result[1].append(itog)
 
         return result
