@@ -110,11 +110,9 @@ const file_actions = {
 
     // отправка файлов на сервер для их последующей обработки осуществляется этой функцией
     send_files: function (event) {
-        let files = $('[data-action="send_file"]'), keys = files.map(function() {
-            return $(this).attr('data-pk')
-        })
-
-        let rows = $('[data-action="rows"]').val(),
+        let files = $('[data-action="send_file"]'),
+            keys = files.map(function() { return $(this).attr('data-pk') }),
+            rows = $('[data-action="rows"]').val(),
             columns = $('[data-action="columns"]').val(),
             answers = $('[data-action="answers"]').val(),
             words = $('[data-action="words"]').val()
@@ -148,7 +146,7 @@ const file_actions = {
             })
         }
         else if(!rows || !columns || !answers || !words || parseInt(rows) <= 0 || parseInt(columns) <= 0){
-            display_warnings.modal_window({ message: 'Пожалуйста, введите все требуемые данные и повторите попытку.' }, 'error')
+            display_warnings.modal_window({ message: 'Пожалуйста, введите корректно все требуемые данные и повторите попытку.' }, 'error')
             display_warnings.debug_window(['Необходимые данные или не введены или не коректны.'])
         }
 
