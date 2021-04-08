@@ -8,6 +8,15 @@
     flex-direction: row;
 }
 
+.tFields{
+    display: flex;
+    flex-direction: row;
+}
+
+.tField input{
+    width: 33.3%
+}
+
 /* Сообщение об ошибке/предупреждении и т. д. */
 .warning_message_container{
     position: fixed;
@@ -124,5 +133,13 @@
     .bt{
         padding: 4px 13px;
         font-size: 14px;
+    }
+
+    .tField{
+        flex-direction: column;
+    }
+
+    .tField input{
+        width: 100%
     }
 }
