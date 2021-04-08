@@ -197,6 +197,10 @@ p, a, pre, code{
     .footer{
         flex-direction: column;
     }
+
+    .submenu{
+        display: none;
+    }
 }
 
 .footer_item{

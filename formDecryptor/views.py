@@ -85,7 +85,7 @@ def send_file(request):
 
     ids = json.loads(files_ids)
 
-    if ids['length'] < 2:
+    if ids['length'] < 1:
         return JsonResponse({'result': False, 'message': 'Слишком мало файлов.'})
 
     result = Algoritm(bukvi=words, otveti=answers, radW=columns, radH=rows,

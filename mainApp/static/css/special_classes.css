@@ -8,13 +8,17 @@
     flex-direction: row;
 }
 
-.tFields{
+.tField{
     display: flex;
     flex-direction: row;
 }
 
 .tField input{
-    width: 33.3%
+    width: 100%
+}
+
+.tFieldI{
+    width: 33.3%;
 }
 
 /* Сообщение об ошибке/предупреждении и т. д. */
@@ -139,7 +143,7 @@
         flex-direction: column;
     }
 
-    .tField input{
-        width: 100%
+    .tFieldI{
+        width: 100%;
     }
 }

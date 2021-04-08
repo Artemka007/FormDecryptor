@@ -100,9 +100,9 @@ const file_actions = {
     send_files: function (event) {
         let files = $('[data-action="send_file"]'),
             keys = files.map(function() { return $(this).attr('data-pk') }),
-            rows = $('[data-action="rows"]').val(),
-            columns = $('[data-action="columns"]').val(),
-            answers = $('[data-action="answers"]').val(),
+            rows = file_actions.positive_int("rows"),
+            columns = file_actions.positive_int("columns"),
+            answers = file_actions.positive_int("answers"),
             words = $('[data-action="words"]').val(),
             val = parseInt($('[data-action="files_count"]').val()) || undefined
 
@@ -176,6 +176,16 @@ const file_actions = {
         }
         display_warnings.modal_window({ message: 'Все файлы успешно удалены!' }, 'ok')
         return false;
+    },
+
+    positive_int: function (action) {
+        let val = $('[data-action=' + action + ']').val()
+        try{
+            return parseInt(val) > 0 ? val : parseInt(val) * -1
+        }
+        catch (e) {
+            return undefined
+        }
     }
 }
 
