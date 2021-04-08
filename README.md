@@ -41,6 +41,7 @@
    * #### [jQuery](https://github.com/jquery/jquery)
    * #### [jquery-file-upload](https://github.com/blueimp/jQuery-File-Upload)
    * #### [jquery.iframe-transport](https://github.com/cmlenz/jquery-iframe-transport)
+   * #### [jquery-ui-widget](https://github.com/jquery/jquery-ui)
    * #### [jquery-form](https://github.com/jquery-form/form)
 
 ## Контакты:
