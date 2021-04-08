@@ -4,15 +4,6 @@
 * #### Лымарь Виктор
 * #### Копылов Артем
 
-## Ссылки на подключенные фреймворки, модули и библиотеки:
-* #### [django](https://github.com/django/django)
-* #### [pillow](https://github.com/python-pillow/Pillow)
-* #### [opencv](https://github.com/opencv/opencv)
-* #### [numpy](https://github.com/numpy/numpy)
-* #### [jQuery](https://github.com/jquery/jquery)
-* #### [jquery-file-upload](https://github.com/blueimp/jQuery-File-Upload)
-* #### [jquery-iframe-transport](https://github.com/cmlenz/jquery-iframe-transport)
-
 ## Общая информация о проекте:
 ### Протокол веб-сайта: http.
 ### База данных: SQLite.
