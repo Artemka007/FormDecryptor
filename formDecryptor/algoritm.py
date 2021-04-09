@@ -41,15 +41,15 @@ class Algoritm:
 
     def create_header(self, *args, **kwargs):
         v = 1
-        numbers = []
-        numbers.append("Имя файла")
-        numbers.append('Класс')
-        numbers.append(f'Answers 1-{self.radW * self.stolb}')
+        header = []
+        header.append("Имя файла")
+        header.append('Класс')
+        header.append(f'Answers 1-{self.radW * self.stolb}')
         while v < kwargs['count'] + 1:
-            numbers.append(v)
+            header.append(v)
             v += 1
-        numbers.append('Итого')
-        return numbers
+        header.append('Итого')
+        return header
 
     def get_main_color(self, image):
         colors = image.getcolors(256)
