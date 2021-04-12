@@ -22,12 +22,12 @@
     height: fit-content;
 }
 
-.form_link{
+.form_link, .footer_item{
     font-size: 18px;
     text-decoration: none;
 }
 
-.form_link:hover{
+.form_link:hover, .footer_item:hover{
     text-decoration: underline;
 }
 

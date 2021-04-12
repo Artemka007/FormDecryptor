@@ -27,15 +27,15 @@
 <body>
 <nav class="nav_panel">
     {% with request.resolver_match.url_name as un %}
-        <div class="nav_main_item">
+        <section class="nav_main_item">
             <div class="nav_title_container" style="justify-content: center;">
                 <a class="nav_title" href="{% url 'index' %}">FormDecryptor</a>
             </div>
             <a href="{% url "index" %}" class="{% if un == 'index' %}nav_item_active{% else %}nav_item{% endif %}">Главная страница</a>
             <a href="{% url "decryptor_index" %}" class="{% if un == 'decryptor_index' %}nav_item_active{% else %}nav_item{% endif %}">Сканер бланков</a>
             <a href="{% url "about" %}" class="{% if un == 'about' %}nav_item_active{% else %}nav_item{% endif %}">Инструкция</a>
-        </div>
-        <div class="nav_auth_item">
+        </section>
+        <section class="nav_auth_item">
             <!-- If user is authenticated we see him full name and link to logout in navigation panel -->
             {% if request.user.is_authenticated %}
                 <!-- We need to create profile settings page -->
@@ -52,7 +52,7 @@
                 <a href="{% url 'register' %}" class="{% if un == 'register' %}nav_item_active{% else %}nav_item{% endif %}">Зарегистрироваться</a>
                 <a href="{% url 'login' %}" class="{% if un == 'login' %}nav_item_active{% else %}nav_item{% endif %}">Войти</a>
             {% endif %}
-        </div>
+        </section>
     {% endwith %}
 </nav>
 <div class="content_container" >
@@ -62,12 +62,14 @@
 
         {% endblock %}
         <footer class="footer">
-            <div class="footer_item">&copy; Hakaton Team </div>
-            <a href="{% url "index" %}" class="footer_item">Главная страница</a>
-            <a href="{% url "contacts" %}" class="footer_item">Контакты</a>
-            <a class="footer_item" href="https://github.com/Artemka007/FormDecryption">Проект на GitHub</a>
-            <a class="footer_item" href="{% url 'about' %}">INSTRUCTION</a>
-            <a class="footer_item" href="https://docs.google.com/document/d/11gZ-GqUpfL4QKW7UxLPR68zDaDCGLPgG8h9TjmVC_BM/edit#">DOCS</a>
+            <div class="footer_items_container">
+                <div class="footer_item" style="text-decoration: none;">&copy; Super Progers </div>
+                <a href="{% url "index" %}" class="footer_item">Главная страница</a>
+                <a href="{% url "contacts" %}" class="footer_item">Контакты</a>
+                <a class="footer_item" href="https://github.com/Artemka007/FormDecryption">Проект на GitHub</a>
+                <a class="footer_item" href="{% url 'about' %}">INSTRUCTION</a>
+                <a class="footer_item" href="https://docs.google.com/document/d/11gZ-GqUpfL4QKW7UxLPR68zDaDCGLPgG8h9TjmVC_BM/edit#">DOCS</a>
+            </div>
         </footer>
     </div>
 </div>

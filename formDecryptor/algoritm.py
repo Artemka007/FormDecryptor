@@ -339,10 +339,9 @@ class Algoritm:
             cell.value = title[s-1]
             cell.alignment = Alignment(horizontal='center')
 
-            right = Side(style='thin')
-            left = Side(style='thin')
+            side = Side(style='thin')
 
-            cell.border = Border(top=Side(style='thin'), bottom=Side(style='thin'), right=right, left=left)
+            cell.border = Border(top=side, bottom=side, right=side, left=side)
             s += 1
 
 

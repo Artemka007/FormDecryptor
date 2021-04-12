@@ -107,7 +107,7 @@ const file_actions = {
             val = parseInt($('[data-action="files_count"]').val()) || undefined
 
 
-        if(keys.length > 2 && rows && columns && answers && words && parseInt(rows) > 0 && parseInt(columns) > 0 && (!val || keys.length <= val)){
+        if(keys.length > 0 && rows && columns && answers && words && parseInt(rows) > 0 && parseInt(columns) > 0 && (!val || keys.length <= val)){
             loading.loading(true)
             $.ajax({
                 url: '/decryptor/send',
