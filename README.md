@@ -46,5 +46,5 @@
 
 ## Contacts:
 * #### email: kopylovartyom007@gmail.com, vektobus@gmail.com.
-* #### telegram: @artyomka007 Копылов Артем или +7926428790 Лымарь Виктор
+* #### telegram: @artyomka007 or +7926428790
 * #### contact phones: +79126865578, +7926428790
