@@ -1,8 +1,8 @@
 # [FormDecryptor](https://github.com/Artemka007/FormDecryptor) 1.0.0
 
 ## Команда:
-* ### Лымарь Виктор
 * ### Копылов Артем
+* ### Лымарь Виктор
 
 ## Общая информация о проекте:
 * ### Языки программирования: python, javascript, html, css, SQL.
