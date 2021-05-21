@@ -17,11 +17,10 @@
 ## Бэкэнд:
 * ### Языки:
   * #### python
-  * #### SQL
 * ### Библиотеки и БД:
    * #### [django](https://github.com/django/django)
    * #### [django-ckeditor](https://github.com/django-ckeditor/django-ckeditor)
-   * #### SQLite  (эта БД нужна только для демонстрации работы проекта, впоследствии проект будет переведен на PostgreSQL или MySQL)
+   * #### PostgreSQL
     
 ## Алгоритм распознавания бланков:
 * ### Языки:
